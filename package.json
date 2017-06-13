@@ -1,0 +1,41 @@
+{
+  "name": "presentable",
+  "version": "1.0.0",
+  "description": "Decorator to facilitate the separation between smart and dumb ReactJS components.",
+  "license": "Apache-2.0",
+  "main": "build",
+  "scripts": {
+    "clean": "rimraf \"build/!(.git)\"",
+    "build": "npm run clean && babel src -d build --ignore **/__*__/** -s",
+    "dev": "jest src --watch",
+    "start": "npm run dev",
+    "test": "jest src"
+  },
+  "keywords": [
+    "ctrine",
+    "decorator",
+    "presenter",
+    "presentable",
+    "react",
+    "template",
+    "templates",
+    "ui",
+    "view"
+  ],
+  "author": [
+    {
+      "name": "Alexandre Borela",
+      "email": "alexandre@borela.tech",
+      "url": "http://www.borela.tech"
+    }
+  ],
+  "devDependencies": {
+    "babel-preset-ctrine-web-lib": "^1.0.0",
+    "ctrine-dev-preset": "^4.0.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "peerDependencies": {
+    "react": "^15.4.0"
+  }
+}
