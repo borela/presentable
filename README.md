@@ -10,9 +10,8 @@ npm install --save presentable
 
 ```js
 import React, { Component } from 'react'
-import { defaultPresenter, presenter, presentable } from 'presentable'
+import { defaultPresenter, presentable } from 'presentable'
 
-@presenter
 class SomePresenter extends Component {
   render() {
     let { instance, state, props, handlers } = this.props.presentable
