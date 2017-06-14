@@ -1,6 +1,6 @@
 {
   "name": "presentable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Decorator to facilitate the separation between smart and dumb ReactJS components.",
   "license": "Apache-2.0",
   "main": "build",
@@ -11,6 +11,14 @@
     "start": "npm run dev",
     "test": "jest src"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borela/presentable.git"
+  },
+  "bugs": {
+    "url": "https://github.com/borela/presentable/issues"
+  },
+  "homepage": "https://github.com/borela/presentable#readme",
   "keywords": [
     "ctrine",
     "decorator",
