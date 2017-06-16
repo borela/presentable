@@ -24,7 +24,7 @@ export function defaultPresenter(defaultPresenter:Component) {
       }
     })
 
-    return targetComponent;;;;;;;;;;
+    return targetComponent
   }
 }
 
