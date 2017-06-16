@@ -57,7 +57,8 @@ export function presentable(targetComponent:Component) {
         else
           props[propName] = this.props[propName]
       }
-      return this.renderPresenter(this.state, props, handlers)
+      let state = {...this.state}
+      return this.renderPresenter(state, props, handlers)
     }
   }
 
