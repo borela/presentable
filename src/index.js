@@ -44,20 +44,20 @@ export function presentable(targetComponent:Component) {
     let { presenter: Presenter } = this
     return !Presenter
       ? null
-      : <Presenter presentable={{ instance: this, state, props, handlers }}/>
+      : <Presenter presentable={{ handlers, instance: this, props, state }}/>
   }
 
   // Default rendering method.
   if (!prototype.render) {
     prototype.render = function() {
-      let props = {}, handlers = {}
+      let handlers = {}, props = {}
       for (let propName in this.props) {
         if (HANDLER_IDENTIFIER.test(propName))
           handlers[propName] = this.props[propName]
         else
           props[propName] = this.props[propName]
       }
-      let state = {...this.state}
+      let state = { ...this.state }
       return this.renderPresenter(state, props, handlers)
     }
   }

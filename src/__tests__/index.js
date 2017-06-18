@@ -11,24 +11,25 @@
 // the License.
 
 import React, { Component } from 'react'
-import { render, shallow } from 'enzyme'
 import { defaultPresenter, presentable } from '..'
+import { render, shallow } from 'enzyme'
+
+export const ALMOST_HANDLERS = { on: 1, once: 2, one: 3 }
+export const NORMAL_HANDLERS = { onSomeEventA: 4, onSomeEventB: 5, onSomeEventC: 6 }
+export const NORMAL_PROPS = { somePropA: 7, somePropB: 8, somePropC: 9 }
+export const SINGLE_CHAR_HANDLERS = { onA: 10, onB: 11, onC: 12 }
+export const SINGLE_CHAR_PROPS = { a: 13, b: 14, c: 15 }
+export const STATE = { a: 16, b: 17, c: 18 }
 
 class SharedComponent extends Component {
   static defaultProps = {
-    // Single character props.
-    a: 1, b: 2, c: 3,
-    // Other props.
-    somePropA: 4, somePropB: 5, somePropC: 6,
-    // Props that might be confused with event handlers.
-    on: 7, one: 8, once: 9,
-    // Single character event handlers.
-    onA: 1, onB: 2, onC: 3,
-    // Other events handlers.
-    onSomeEventA: 4, onSomeEventB: 5, onSomeEventC: 6
+    ...ALMOST_HANDLERS,
+    ...NORMAL_HANDLERS,
+    ...NORMAL_PROPS,
+    ...SINGLE_CHAR_HANDLERS,
+    ...SINGLE_CHAR_PROPS
   }
-
-  state = { a: 1, b: 2, c: 3 }
+  state = STATE
 }
 
 class SomePresenter extends Component {
@@ -42,24 +43,19 @@ class SomePresenter extends Component {
       .toBeInstanceOf(SharedComponent)
 
     expect(state)
-      .toEqual({ a: 1, b: 2, c: 3 })
+      .toEqual(STATE)
 
     expect(props)
       .toEqual({
-        // Single character props.
-        a: 1, b: 2, c: 3,
-        // Other props.
-        somePropA: 4, somePropB: 5, somePropC: 6,
-        // Props that might be confused with event handlers.
-        on: 7, one: 8, once: 9
+        ...ALMOST_HANDLERS,
+        ...SINGLE_CHAR_PROPS,
+        ...NORMAL_PROPS
       })
 
     expect(handlers)
       .toEqual({
-        // Single character event handlers.
-        onA: 1, onB: 2, onC: 3,
-        // Other events handlers.
-        onSomeEventA: 4, onSomeEventB: 5, onSomeEventC: 6
+        ...SINGLE_CHAR_HANDLERS,
+        ...NORMAL_HANDLERS
       })
 
     return <div>Ctrine!</div>
