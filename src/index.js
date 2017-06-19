@@ -32,6 +32,7 @@ export function presentable(targetComponent:Component) {
   let prototype = targetComponent.prototype
 
   // Getter that can be used to test if the decorator was applied.
+  // Getter that can be used to test if the decorator was applied on a instance.
   Object.defineProperty(prototype, 'isPresentable', {
     get() {
       return true
