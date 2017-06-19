@@ -107,6 +107,13 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
         .toBe(SomeComponent)
     })
 
+    it('has a getter “isPresentable”', () => {
+      const WRAPPER = shallow(<SomeComponent/>)
+      const INSTANCE = WRAPPER.instance()
+      expect(INSTANCE.isPresentable)
+        .toBe(true)
+    })
+
     it('is empty', () => {
       const WRAPPER = render(<SomeComponent/>)
       expect(WRAPPER.children().length)
@@ -146,6 +153,13 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       const INSTANCE = WRAPPER.instance()
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
+    })
+
+    it('has a getter “isPresentable”', () => {
+      const WRAPPER = shallow(<SomeComponent/>)
+      const INSTANCE = WRAPPER.instance()
+      expect(INSTANCE.isPresentable)
+        .toBe(true)
     })
 
     it('renders the default presenter', () => {

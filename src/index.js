@@ -31,6 +31,13 @@ export function defaultPresenter(defaultPresenter:Component) {
 export function presentable(targetComponent:Component) {
   let prototype = targetComponent.prototype
 
+  // Getter that can be used to test if the decorator was applied.
+  Object.defineProperty(prototype, 'isPresentable', {
+    get() {
+      return true
+    }
+  })
+
   // This getter will be useful for debugging the actual presenter being rendered.
   Object.defineProperty(prototype, 'presenter', {
     get() {
