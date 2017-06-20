@@ -13,9 +13,18 @@
 
 import React, { Component } from 'react'
 
+// Used to filter handlers.
 const HANDLER_IDENTIFIER = /^on[A-Z]\w*/
 
-export function defaultPresenter(defaultPresenter:Component) {
+/**
+ * Symbol added to the class to mark it as decorated.
+ */
+export const SYMBOL = Symbol.for('presentable')
+
+/**
+ * Set a getter with the default presenter on the target component.
+ */
+export function defaultPresenter(defaultPresenter:Class<Component>) {
   return (targetComponent:Component) => {
     let prototype = targetComponent.prototype
 
@@ -29,16 +38,28 @@ export function defaultPresenter(defaultPresenter:Component) {
   }
 }
 
-export function presentable(targetComponent:Component) {
+/**
+ * Check if the target component supports presenters.
+ */
+export function isPresentable(targetComponent:Class<Component>|Component) {
+  const PROTOTYPE = targetComponent instanceof Component
+    ? Object.getPrototypeOf(targetComponent)
+    : targetComponent.prototype
+  return PROTOTYPE[SYMBOL] === true
+}
+
+/**
+ * Add support for presenters for the target component.
+ */
+export function presentable(targetComponent:Class<Component>) {
+  // Prevent the decorator from being applied multiple times.
+  if (isPresentable(targetComponent))
+    return targetComponent
+
   let prototype = targetComponent.prototype
 
-  // Getter that can be used to test if the decorator was applied.
-  // Getter that can be used to test if the decorator was applied on a instance.
-  Object.defineProperty(prototype, 'isPresentable', {
-    get() {
-      return true
-    }
-  })
+  // Add a marker.
+  prototype[SYMBOL] = true
 
   // This getter will be useful for debugging the actual presenter being rendered.
   Object.defineProperty(prototype, 'presenter', {

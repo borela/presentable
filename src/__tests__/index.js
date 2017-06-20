@@ -11,7 +11,7 @@
 // the License.
 
 import React, { Component } from 'react'
-import { defaultPresenter, presentable } from '..'
+import { defaultPresenter, isPresentable, presentable } from '..'
 import { render, shallow } from 'enzyme'
 
 export const ALMOST_HANDLERS = { on: 1, once: 2, one: 3 }
@@ -93,6 +93,39 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
   })
 })
 
+describe('Function “isPresentable”', () => {
+  class NonPresentable extends SharedComponent {}
+
+  @presentable
+  class SomeComponent extends SharedComponent {}
+
+  describe('Used on presentable', () => {
+    it('returns “true” on class', () => {
+      expect(isPresentable(SomeComponent))
+        .toBe(true)
+    })
+
+    it('returns “true” on instance', () => {
+      const INSTANCE = new SomeComponent
+      expect(isPresentable(INSTANCE))
+        .toBe(true)
+    })
+  })
+
+  describe('Used on non presentable', () => {
+    it('returns “false” on class', () => {
+      expect(isPresentable(NonPresentable))
+        .toBe(false)
+    })
+
+    it('returns “false” on instance', () => {
+      const INSTANCE = new NonPresentable
+      expect(isPresentable(INSTANCE))
+        .toBe(false)
+    })
+  })
+})
+
 describe('Decorator “presentable” applied on “SomeComponent”', () => {
   describe('Without “defaultPresenter”', () => {
     // The decorator must implement the render method so that the following class
@@ -105,13 +138,6 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       const INSTANCE = WRAPPER.instance()
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
-    })
-
-    it('has a getter “isPresentable”', () => {
-      const WRAPPER = shallow(<SomeComponent/>)
-      const INSTANCE = WRAPPER.instance()
-      expect(INSTANCE.isPresentable)
-        .toBe(true)
     })
 
     it('is empty', () => {
@@ -153,13 +179,6 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       const INSTANCE = WRAPPER.instance()
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
-    })
-
-    it('has a getter “isPresentable”', () => {
-      const WRAPPER = shallow(<SomeComponent/>)
-      const INSTANCE = WRAPPER.instance()
-      expect(INSTANCE.isPresentable)
-        .toBe(true)
     })
 
     it('renders the default presenter', () => {
