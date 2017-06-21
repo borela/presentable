@@ -10,63 +10,12 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import React, { Component } from 'react'
+import React from 'react'
+import SharedComponent from 'SharedComponent'
+import SomePresenter from 'SomePresenter'
+import SpecificPresenter from 'SpecificPresenter'
 import { defaultPresenter, isPresentable, presentable } from '..'
 import { render, shallow } from 'enzyme'
-
-export const ALMOST_HANDLERS = { on: 1, once: 2, one: 3 }
-export const NORMAL_HANDLERS = { onSomeEventA: 4, onSomeEventB: 5, onSomeEventC: 6 }
-export const NORMAL_PROPS = { somePropA: 7, somePropB: 8, somePropC: 9 }
-export const SINGLE_CHAR_HANDLERS = { onA: 10, onB: 11, onC: 12 }
-export const SINGLE_CHAR_PROPS = { a: 13, b: 14, c: 15 }
-export const STATE = { a: 16, b: 17, c: 18 }
-
-class SharedComponent extends Component {
-  static defaultProps = {
-    ...ALMOST_HANDLERS,
-    ...NORMAL_HANDLERS,
-    ...NORMAL_PROPS,
-    ...SINGLE_CHAR_HANDLERS,
-    ...SINGLE_CHAR_PROPS
-  }
-  state = STATE
-}
-
-class SomePresenter extends Component {
-  render() {
-    expect(this.props.presentable)
-      .not.toBeUndefined()
-
-    let { instance, state, props, handlers } = this.props.presentable
-
-    expect(instance)
-      .toBeInstanceOf(SharedComponent)
-
-    expect(state)
-      .toEqual(STATE)
-
-    expect(props)
-      .toEqual({
-        ...ALMOST_HANDLERS,
-        ...SINGLE_CHAR_PROPS,
-        ...NORMAL_PROPS
-      })
-
-    expect(handlers)
-      .toEqual({
-        ...SINGLE_CHAR_HANDLERS,
-        ...NORMAL_HANDLERS
-      })
-
-    return <div>Ctrine!</div>
-  }
-}
-
-class SpecificPresenter extends Component {
-  render() {
-    return <div>Specific presenter!</div>
-  }
-}
 
 describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
   @defaultPresenter(SomePresenter)
