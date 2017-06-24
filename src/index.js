@@ -25,13 +25,11 @@ export const SYMBOL = Symbol.for('presentable')
 export function defaultPresenter(defaultPresenter:Class<Component>) {
   return (targetComponent:Component) => {
     let prototype = targetComponent.prototype
-
     Object.defineProperty(prototype, 'defaultPresenter', {
       get() {
         return defaultPresenter
       }
     })
-
     return targetComponent
   }
 }
