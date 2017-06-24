@@ -18,7 +18,6 @@ import { AlreadyPresentableException, defaultPresenter, isPresentable, presentab
 import { render, shallow } from 'enzyme'
 
 describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
-  @defaultPresenter(SomePresenter)
   class SomeComponent extends SharedComponent {
     // React components requires the render method to be defined but we are only
     // testing the “defaultPresenter” getter.
@@ -27,9 +26,14 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
     }
   }
 
+  // The decorator must modify the class instead of generating a new one.
+  let DecoratedComponent = defaultPresenter(SomePresenter)(SomeComponent)
+
   it('has the same constructor', () => {
-    const WRAPPER = shallow(<SomeComponent/>)
+    const WRAPPER = shallow(<DecoratedComponent/>)
     const INSTANCE = WRAPPER.instance()
+    expect(INSTANCE instanceof SomeComponent)
+      .toBe(true)
     expect(Object.getPrototypeOf(INSTANCE).constructor)
       .toBe(SomeComponent)
   })
@@ -42,49 +46,19 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
   })
 })
 
-describe('Function “isPresentable”', () => {
-  class NonPresentable extends SharedComponent {}
-
-  @presentable
-  class SomeComponent extends SharedComponent {}
-
-  describe('Used on presentable', () => {
-    it('returns “true” on class', () => {
-      expect(isPresentable(SomeComponent))
-        .toBe(true)
-    })
-
-    it('returns “true” on instance', () => {
-      const INSTANCE = new SomeComponent
-      expect(isPresentable(INSTANCE))
-        .toBe(true)
-    })
-  })
-
-  describe('Used on non presentable', () => {
-    it('returns “false” on class', () => {
-      expect(isPresentable(NonPresentable))
-        .toBe(false)
-    })
-
-    it('returns “false” on instance', () => {
-      const INSTANCE = new NonPresentable
-      expect(isPresentable(INSTANCE))
-        .toBe(false)
-    })
-  })
-})
-
 describe('Decorator “presentable” applied on “SomeComponent”', () => {
   describe('Without “defaultPresenter”', () => {
-    // The decorator must implement the render method so that the following class
-    // declaration is actually correct.
-    @presentable
+    // The decorator must implement the render method on demand.
     class SomeComponent extends SharedComponent {}
 
+    // The decorator must modify the class instead of generating a new one.
+    let DecoratedComponent = presentable(SomeComponent)
+
     it('has the same constructor', () => {
-      const WRAPPER = shallow(<SomeComponent/>)
+      const WRAPPER = shallow(<DecoratedComponent/>)
       const INSTANCE = WRAPPER.instance()
+      expect(INSTANCE instanceof SomeComponent)
+        .toBe(true)
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
     })
@@ -124,13 +98,17 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
   })
 
   describe('With “defaultPresenter”', () => {
-    @presentable
     @defaultPresenter(SomePresenter)
     class SomeComponent extends SharedComponent {}
 
+    // The decorator must modify the class instead of generating a new one.
+    let DecoratedComponent = presentable(SomeComponent)
+
     it('has the same constructor', () => {
-      const WRAPPER = shallow(<SomeComponent/>)
+      const WRAPPER = shallow(<DecoratedComponent/>)
       const INSTANCE = WRAPPER.instance()
+      expect(INSTANCE instanceof SomeComponent)
+        .toBe(true)
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
     })
@@ -168,6 +146,39 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
         expect(INSTANCE.presenter)
           .toBe(SpecificPresenter)
       })
+    })
+  })
+})
+
+describe('Function “isPresentable”', () => {
+  class NonPresentable extends SharedComponent {}
+
+  @presentable
+  class SomeComponent extends SharedComponent {}
+
+  describe('Used on presentable', () => {
+    it('returns “true” on class', () => {
+      expect(isPresentable(SomeComponent))
+        .toBe(true)
+    })
+
+    it('returns “true” on instance', () => {
+      const INSTANCE = new SomeComponent
+      expect(isPresentable(INSTANCE))
+        .toBe(true)
+    })
+  })
+
+  describe('Used on non presentable', () => {
+    it('returns “false” on class', () => {
+      expect(isPresentable(NonPresentable))
+        .toBe(false)
+    })
+
+    it('returns “false” on instance', () => {
+      const INSTANCE = new NonPresentable
+      expect(isPresentable(INSTANCE))
+        .toBe(false)
     })
   })
 })
