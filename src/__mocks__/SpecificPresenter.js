@@ -11,9 +11,28 @@
 // the License.
 
 import React, { Component } from 'react'
+import SharedComponent from './SharedComponent'
+import { PROPS, STATE } from './constants'
 
 export class SpecificPresenter extends Component {
   render() {
+    expect(this.props.presentable)
+      .not.toBeUndefined()
+
+    let { instance, state, props } = this.props.presentable
+
+    expect(instance)
+      .toBeInstanceOf(SharedComponent)
+
+    expect(state)
+      .toEqual(STATE)
+
+    expect(props)
+      .toEqual(PROPS)
+
+    expect(props)
+      .not.toHaveProperty('presenter')
+
     return <div>Specific presenter!</div>
   }
 }

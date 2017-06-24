@@ -1,6 +1,6 @@
 {
   "name": "presentable",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Decorator to facilitate the separation between smart and dumb ReactJS components.",
   "license": "Apache-2.0",
   "main": "build",

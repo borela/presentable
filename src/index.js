@@ -77,7 +77,9 @@ export function presentable(targetComponent:Class<Component>) {
   // Default rendering method.
   if (!prototype.render) {
     prototype.render = function() {
-      return this.renderPresenter({ ...this.state }, { ...this.props })
+      let props = { ...this.props }
+      delete props.presenter
+      return this.renderPresenter({ ...this.state }, props)
     }
   }
 
