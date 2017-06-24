@@ -8,4 +8,4 @@
 // or reproduction of this material is strictly forbidden unless prior written
 // permission is obtained from Alexandre Borela.
 
-module.exports = { snapshotSerializers: ['enzyme-to-json/serializer']}
+module.exports = { snapshotSerializers: [ 'enzyme-to-json/serializer' ]}
