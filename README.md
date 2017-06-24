@@ -14,7 +14,15 @@ import { defaultPresenter, presentable } from 'presentable'
 
 class SomePresenter extends Component {
   render() {
-    let { instance, state, props, handlers } = this.props.presentable
+    let {
+      // The instance is useful if you need to call any of the presentable
+      // methods. An example would be a button having a method “press” or “click”.
+      instance,
+      // It is recommended to access the state/props through this property instead
+      // of accessing them through the instance, this is by design to allow other
+      // decorators to modify/enhance the presentable property when needed.
+      state, props
+    } = this.props.presentable
     return <div>Ctrine!</div>
   }
 }
