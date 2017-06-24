@@ -11,10 +11,8 @@
 // the License.
 // @flow
 
+import AlreadyPresentableException from './AlreadyPresentableException'
 import React, { Component } from 'react'
-
-// Used to filter handlers.
-const HANDLER_IDENTIFIER = /^on[A-Z]\w*/
 
 /**
  * Symbol added to the class to mark it as decorated.
@@ -52,9 +50,10 @@ export function isPresentable(targetComponent:Class<Component>|Component) {
  * Add support for presenters for the target component.
  */
 export function presentable(targetComponent:Class<Component>) {
-  // Prevent the decorator from being applied multiple times.
-  if (isPresentable(targetComponent))
-    return targetComponent
+  if (isPresentable(targetComponent)) {
+    const COMPONENT_NAME = targetComponent.prototype.constructor.name
+    throw new AlreadyPresentableException(`The component “${COMPONENT_NAME}” is already presentable.`)
+  }
 
   let prototype = targetComponent.prototype
 
@@ -70,29 +69,22 @@ export function presentable(targetComponent:Class<Component>) {
 
   // Hook used to allow other decorators to modify the properties and handlers
   // before passing it down to the presenter.
-  prototype.renderPresenter = function(state, props, handlers) {
+  prototype.renderPresenter = function(state, props) {
     let { presenter: Presenter } = this
     return !Presenter
       ? null
-      : <Presenter presentable={{ handlers, instance: this, props, state }}/>
+      : <Presenter presentable={{ instance: this, props, state }}/>
   }
 
   // Default rendering method.
   if (!prototype.render) {
     prototype.render = function() {
-      let handlers = {}, props = {}
-      for (let propName in this.props) {
-        if (HANDLER_IDENTIFIER.test(propName))
-          handlers[propName] = this.props[propName]
-        else
-          props[propName] = this.props[propName]
-      }
-      let state = { ...this.state }
-      return this.renderPresenter(state, props, handlers)
+      return this.renderPresenter({ ...this.state }, { ...this.props })
     }
   }
 
   return targetComponent
 }
 
+export { AlreadyPresentableException } from './AlreadyPresentableException'
 export default presentable
