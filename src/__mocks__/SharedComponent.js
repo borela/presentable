@@ -10,24 +10,11 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import {
-  ALMOST_HANDLERS,
-  NORMAL_HANDLERS,
-  NORMAL_PROPS,
-  SINGLE_CHAR_HANDLERS,
-  SINGLE_CHAR_PROPS,
-  STATE
-} from './constants'
+import { PROPS, STATE } from './constants'
 import { Component } from 'react'
 
 export class SharedComponent extends Component {
-  static defaultProps = {
-    ...ALMOST_HANDLERS,
-    ...NORMAL_HANDLERS,
-    ...NORMAL_PROPS,
-    ...SINGLE_CHAR_HANDLERS,
-    ...SINGLE_CHAR_PROPS
-  }
+  static defaultProps = PROPS
   state = STATE
 }
 

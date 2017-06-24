@@ -14,7 +14,7 @@ import React from 'react'
 import SharedComponent from 'SharedComponent'
 import SomePresenter from 'SomePresenter'
 import SpecificPresenter from 'SpecificPresenter'
-import { defaultPresenter, isPresentable, presentable } from '..'
+import { AlreadyPresentableException, defaultPresenter, isPresentable, presentable } from '..'
 import { render, shallow } from 'enzyme'
 
 describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
@@ -80,10 +80,6 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     // The decorator must implement the render method so that the following class
     // declaration is actually correct.
     @presentable
-    @presentable
-    // Also, it is allowed to apply it multiple times but only the deepest occurrence
-    // will actually modify the class.
-    @presentable
     class SomeComponent extends SharedComponent {}
 
     it('has the same constructor', () => {
@@ -91,6 +87,11 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       const INSTANCE = WRAPPER.instance()
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
+    })
+
+    it('shows an error if apllied multiple times', () => {
+      expect(() => presentable(SomeComponent))
+        .toThrow(AlreadyPresentableException)
     })
 
     it('is empty', () => {
@@ -132,6 +133,11 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       const INSTANCE = WRAPPER.instance()
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
+    })
+
+    it('shows an error if apllied multiple times', () => {
+      expect(() => presentable(SomeComponent))
+        .toThrow(AlreadyPresentableException)
     })
 
     it('renders the default presenter', () => {

@@ -12,21 +12,14 @@
 
 import React, { Component } from 'react'
 import SharedComponent from './SharedComponent'
-import {
-  ALMOST_HANDLERS,
-  NORMAL_HANDLERS,
-  NORMAL_PROPS,
-  SINGLE_CHAR_HANDLERS,
-  SINGLE_CHAR_PROPS,
-  STATE
-} from './constants'
+import { PROPS, STATE } from './constants'
 
 export class SomePresenter extends Component {
   render() {
     expect(this.props.presentable)
       .not.toBeUndefined()
 
-    let { instance, state, props, handlers } = this.props.presentable
+    let { instance, state, props } = this.props.presentable
 
     expect(instance)
       .toBeInstanceOf(SharedComponent)
@@ -35,17 +28,7 @@ export class SomePresenter extends Component {
       .toEqual(STATE)
 
     expect(props)
-      .toEqual({
-        ...ALMOST_HANDLERS,
-        ...SINGLE_CHAR_PROPS,
-        ...NORMAL_PROPS
-      })
-
-    expect(handlers)
-      .toEqual({
-        ...SINGLE_CHAR_HANDLERS,
-        ...NORMAL_HANDLERS
-      })
+      .toEqual(PROPS)
 
     return <div>Ctrine!</div>
   }

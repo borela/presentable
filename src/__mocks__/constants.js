@@ -10,9 +10,5 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-export const ALMOST_HANDLERS = { on: 1, once: 2, one: 3 }
-export const NORMAL_HANDLERS = { onSomeEventA: 4, onSomeEventB: 5, onSomeEventC: 6 }
-export const NORMAL_PROPS = { somePropA: 7, somePropB: 8, somePropC: 9 }
-export const SINGLE_CHAR_HANDLERS = { onA: 10, onB: 11, onC: 12 }
-export const SINGLE_CHAR_PROPS = { a: 13, b: 14, c: 15 }
+export const PROPS = { a: 13, b: 14, c: 15 }
 export const STATE = { a: 16, b: 17, c: 18 }
