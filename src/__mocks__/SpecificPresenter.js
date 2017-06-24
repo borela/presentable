@@ -30,9 +30,6 @@ export class SpecificPresenter extends Component {
     expect(props)
       .toEqual(PROPS)
 
-    expect(props)
-      .not.toHaveProperty('presenter')
-
     return <div>Specific presenter!</div>
   }
 }
