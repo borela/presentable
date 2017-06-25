@@ -11,7 +11,18 @@
 // the License.
 // @flow
 
-export { AlreadyPresentableException } from './AlreadyPresentableException'
-export { defaultPresenter } from './defaultPresenter'
-export { isPresentable } from './isPresentable'
-export * from './presentable'
+import { Component } from 'react'
+
+const SYMBOL = Symbol.for('presentable')
+
+/**
+ * Check if the target component supports presenters.
+ */
+export function isPresentable(targetComponent:Class<Component>|Component) {
+  const PROTOTYPE = targetComponent instanceof Component
+    ? Object.getPrototypeOf(targetComponent)
+    : targetComponent.prototype
+  return PROTOTYPE[SYMBOL] === true
+}
+
+export default isPresentable

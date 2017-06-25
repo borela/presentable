@@ -11,7 +11,21 @@
 // the License.
 // @flow
 
-export { AlreadyPresentableException } from './AlreadyPresentableException'
-export { defaultPresenter } from './defaultPresenter'
-export { isPresentable } from './isPresentable'
-export * from './presentable'
+import { Component } from 'react'
+
+/**
+ * Set a getter with the default presenter on the target component.
+ */
+export function defaultPresenter(defaultPresenter:Class<Component>) {
+  return (targetComponent:Component) => {
+    let prototype = targetComponent.prototype
+    Object.defineProperty(prototype, 'defaultPresenter', {
+      get() {
+        return defaultPresenter
+      }
+    })
+    return targetComponent
+  }
+}
+
+export default defaultPresenter
