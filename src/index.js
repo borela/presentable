@@ -67,19 +67,26 @@ export function presentable(targetComponent:Class<Component>) {
 
   // Hook used to allow other decorators to modify the properties and handlers
   // before passing it down to the presenter.
-  prototype.renderPresenter = function(state, props) {
+  prototype.renderPresenter = function(data) {
     let { presenter: Presenter } = this
     return !Presenter
       ? null
-      : <Presenter presentable={{ instance: this, props, state }}/>
+      : <Presenter presentable={{ instance: this, ...data }}/>
   }
 
   // Default rendering method.
   if (!prototype.render) {
     prototype.render = function() {
-      let props = { ...this.props }
-      delete props.presenter
-      return this.renderPresenter({ ...this.state }, props)
+      let data
+      if (!prototype.getPresentableData) {
+        data = {
+          props: { ...this.props },
+          state: { ...this.state }
+        }
+        delete data.props.presenter
+      } else
+        data = this.getPresentableData()
+      return this.renderPresenter(data)
     }
   }
 

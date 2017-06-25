@@ -10,6 +10,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+import PresenterForCustomData from 'PresenterForCustomData'
+import PresentableWithCustomData from 'PresentableWithCustomData'
 import React from 'react'
 import SharedComponent from 'SharedComponent'
 import SomePresenter from 'SomePresenter'
@@ -117,6 +119,12 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
         expect(INSTANCE.presenter)
           .toBe(SpecificPresenter)
       })
+    })
+  })
+
+  describe('With custom data', () => {
+    it('pass the custom data to the presenter', () => {
+      render(<PresentableWithCustomData presenter={PresenterForCustomData}/>)
     })
   })
 })

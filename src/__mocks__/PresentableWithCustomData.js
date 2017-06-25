@@ -10,7 +10,15 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-export const PROPS = { a: 1, b: 2, c: 3 }
-export const CUSTOM_PROPS = { d: 4, e: 5, f: 6 }
-export const STATE = { g: 7, h: 8, i: 9 }
-export const CUSTOM_STATE = { j: 10, k: 11, l: 12 }
+import presentable from '..'
+import SharedComponent from './SharedComponent'
+import { CUSTOM_PROPS, CUSTOM_STATE } from './constants'
+
+@presentable
+export class PresentableWithCustomData extends SharedComponent {
+  getPresentableData() {
+    return { props: CUSTOM_PROPS, state: CUSTOM_STATE }
+  }
+}
+
+export default PresentableWithCustomData
