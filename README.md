@@ -15,8 +15,8 @@ import { defaultPresenter, presentable } from 'presentable'
 class SomePresenter extends Component {
   render() {
     let {
-      // The instance is useful if you need to call any of the presentable
-      // methods. An example would be a button having a method “press” or “click”.
+      // The instance is useful if you need to call the presentable’s methods,
+      // an example would be a button having a method “press” or “click”.
       instance,
       // It is recommended to access the state/props through this property instead
       // of accessing them through the instance, this is by design to allow other
@@ -46,4 +46,10 @@ class SomeComponent extends Component {
   // “presenter” and if not defined, will use the default presenter to render this
   // component.
 }
+
+// To render the component with the default presenter:
+<SomeComponent/>
+
+// If necessary, a specific presenter can be set as follows:
+<SomeComponent presenter={SomePresenter}/>
 ```
