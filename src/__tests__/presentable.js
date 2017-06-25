@@ -9,20 +9,64 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations under
 // the License.
+// Licensed under the Apache License, Version 2.0 (the “License”); you may not
+// use this file except in compliance with the License. You may obtain a copy of
+// the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an “AS IS” BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations under
+// the License.
 
-import PresenterForCustomData from 'PresenterForCustomData'
-import PresentableWithCustomData from 'PresentableWithCustomData'
-import React from 'react'
-import SharedComponent from 'SharedComponent'
-import SomePresenter from 'SomePresenter'
-import SpecificPresenter from 'SpecificPresenter'
+import React, { Component } from 'react'
 import { AlreadyPresentableException, defaultPresenter, presentable } from '..'
 import { render, shallow } from 'enzyme'
+
+const PROPS = { a: 1, b: 2, c: 3 }
+const CUSTOM_PROPS = { d: 4, e: 5, f: 6 }
+const STATE = { g: 7, h: 8, i: 9 }
+const CUSTOM_STATE = { j: 10, k: 11, l: 12 }
+
+class ProbedPresenter extends Component {
+  render() {
+    expect(this.props.presentable)
+      .not.toBeUndefined()
+
+    let { instance, state, props } = this.props.presentable
+
+    expect(instance).toBeInstanceOf(Component)
+    expect(state).toEqual(STATE)
+    expect(props).toEqual(PROPS)
+
+    return <div>ProbedPresenter!</div>
+  }
+}
+
+class CustomDataProbedPresenter extends Component {
+  render() {
+    expect(this.props.presentable)
+      .not.toBeUndefined()
+
+    let { instance, state, props } = this.props.presentable
+
+    expect(instance).toBeInstanceOf(Component)
+    expect(state).toEqual(CUSTOM_STATE)
+    expect(props).toEqual(CUSTOM_PROPS)
+
+    return <div>CustomDataProbedPresenter!</div>
+  }
+}
 
 describe('Decorator “presentable” applied on “SomeComponent”', () => {
   describe('Without “defaultPresenter”', () => {
     // The decorator must implement the render method on demand.
-    class SomeComponent extends SharedComponent {}
+    class SomeComponent extends Component {
+      static defaultProps = PROPS
+      state = STATE
+    }
 
     // The decorator must modify the class instead of generating a new one.
     let DecoratedComponent = presentable(SomeComponent)
@@ -48,10 +92,8 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     })
 
     it('renders the specified presenter', () => {
-      const WRAPPER = render(<SomeComponent presenter={SpecificPresenter}/>)
-      const CHILDREN = WRAPPER.children()
-      expect(CHILDREN.length).toBe(1)
-      expect(CHILDREN).toMatchSnapshot()
+      const WRAPPER = render(<SomeComponent presenter={ProbedPresenter}/>)
+      expect(WRAPPER).toMatchSnapshot()
     })
 
     describe('Getter “presenter”', () => {
@@ -62,17 +104,26 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       })
 
       it('returns the used presenter', () => {
-        const WRAPPER = shallow(<SomeComponent presenter={SpecificPresenter}/>)
+        const WRAPPER = shallow(<SomeComponent presenter={ProbedPresenter}/>)
         const INSTANCE = WRAPPER.instance()
         expect(INSTANCE.presenter)
-          .toBe(SpecificPresenter)
+          .toBe(ProbedPresenter)
       })
     })
   })
 
   describe('With “defaultPresenter”', () => {
+    class SomePresenter extends Component {
+      render() {
+        return <div>Ctrine!</div>
+      }
+    }
+
     @defaultPresenter(SomePresenter)
-    class SomeComponent extends SharedComponent {}
+    class SomeComponent extends Component {
+      static defaultProps = PROPS
+      state = STATE
+    }
 
     // The decorator must modify the class instead of generating a new one.
     let DecoratedComponent = presentable(SomeComponent)
@@ -93,16 +144,12 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
 
     it('renders the default presenter', () => {
       const WRAPPER = render(<SomeComponent/>)
-      const CHILDREN = WRAPPER.children()
-      expect(CHILDREN.length).toBe(1)
-      expect(CHILDREN).toMatchSnapshot()
+      expect(WRAPPER).toMatchSnapshot()
     })
 
     it('renders the specified presenter', () => {
-      const WRAPPER = render(<SomeComponent presenter={SpecificPresenter}/>)
-      const CHILDREN = WRAPPER.children()
-      expect(CHILDREN.length).toBe(1)
-      expect(CHILDREN).toMatchSnapshot()
+      const WRAPPER = render(<SomeComponent presenter={ProbedPresenter}/>)
+      expect(WRAPPER).toMatchSnapshot()
     })
 
     describe('Getter “presenter”', () => {
@@ -114,17 +161,27 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       })
 
       it('returns the used presenter', () => {
-        const WRAPPER = shallow(<SomeComponent presenter={SpecificPresenter}/>)
+        const WRAPPER = shallow(<SomeComponent presenter={ProbedPresenter}/>)
         const INSTANCE = WRAPPER.instance()
         expect(INSTANCE.presenter)
-          .toBe(SpecificPresenter)
+          .toBe(ProbedPresenter)
       })
     })
   })
 
   describe('With custom data', () => {
+    @presentable
+    class SomeComponent extends Component {
+      static defaultProps = PROPS
+      state = STATE
+
+      getPresentableData() {
+        return { props: CUSTOM_PROPS, state: CUSTOM_STATE }
+      }
+    }
+
     it('pass the custom data to the presenter', () => {
-      render(<PresentableWithCustomData presenter={PresenterForCustomData}/>)
+      render(<SomeComponent presenter={CustomDataProbedPresenter}/>)
     })
   })
 })

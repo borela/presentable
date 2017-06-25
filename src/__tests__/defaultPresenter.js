@@ -10,16 +10,18 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import React from 'react'
-import SharedComponent from 'SharedComponent'
-import SomePresenter from 'SomePresenter'
+import React, { Component } from 'react'
 import { defaultPresenter } from '..'
 import { shallow } from 'enzyme'
 
 describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
-  class SomeComponent extends SharedComponent {
-    // React components requires the render method to be defined but we are only
-    // testing the “defaultPresenter” getter.
+  class SomePresenter extends Component {
+    render() {
+      return <div>Ctrine!</div>
+    }
+  }
+
+  class SomeComponent extends Component {
     render() {
       return null
     }

@@ -8,12 +8,12 @@ exports[`Decorator “presentable” applied on “SomeComponent” With “defa
 
 exports[`Decorator “presentable” applied on “SomeComponent” With “defaultPresenter” renders the specified presenter 1`] = `
 <div>
-  Specific presenter!
+  ProbedPresenter!
 </div>
 `;
 
 exports[`Decorator “presentable” applied on “SomeComponent” Without “defaultPresenter” renders the specified presenter 1`] = `
 <div>
-  Specific presenter!
+  ProbedPresenter!
 </div>
 `;

@@ -10,14 +10,14 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import SharedComponent from 'SharedComponent'
+import { Component } from 'react'
 import { isPresentable, presentable } from '..'
 
 describe('Function “isPresentable”', () => {
-  class NonPresentable extends SharedComponent {}
+  class NonPresentable extends Component {}
 
   @presentable
-  class SomeComponent extends SharedComponent {}
+  class SomeComponent extends Component {}
 
   describe('Used on presentable', () => {
     it('returns “true” on class', () => {
