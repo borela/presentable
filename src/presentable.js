@@ -34,6 +34,8 @@ export function presentable(targetComponent:Class<Component>) {
   // This getter will be useful for debugging the actual presenter being rendered.
   Object.defineProperty(prototype, 'presenter', {
     get() {
+      if (prototype.getPresenter)
+        return this.getPresenter()
       return this.props.presenter || this.defaultPresenter
     }
   })

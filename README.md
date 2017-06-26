@@ -42,6 +42,12 @@ class SomeComponent extends Component {
     return data
   }
 
+  // Optionally the method “getPresenter” can be defined so that a custom logic
+  // can be used to locate the target presenter.
+  getPresenter() {
+    return this.props.presenter || this.defaultPresenter || SomeOtherPresenter
+  }
+
   // The render method doesn’t need to be implemented; It’ll look for the property
   // “presenter” and if not defined, will use the default presenter to render this
   // component.

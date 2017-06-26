@@ -184,4 +184,22 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       render(<SomeComponent presenter={CustomDataProbedPresenter}/>)
     })
   })
+
+
+  describe('With custom presenter resolution', () => {
+    @presentable
+    class SomeComponent extends Component {
+      static defaultProps = PROPS
+      state = STATE
+
+      getPresenter() {
+        return ProbedPresenter
+      }
+    }
+
+    it('uses the presenter from the custom resolution method', () => {
+      const WRAPPER = render(<SomeComponent/>)
+      expect(WRAPPER).toMatchSnapshot()
+    })
+  })
 })

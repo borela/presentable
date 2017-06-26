@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Decorator “presentable” applied on “SomeComponent” With custom presenter resolution uses the presenter from the custom resolution method 1`] = `
+<div>
+  ProbedPresenter!
+</div>
+`;
+
 exports[`Decorator “presentable” applied on “SomeComponent” With “defaultPresenter” renders the default presenter 1`] = `
 <div>
   Ctrine!
