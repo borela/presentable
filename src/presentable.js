@@ -28,7 +28,7 @@ export function presentable(targetComponent:Class<Component>) {
 
   let prototype = targetComponent.prototype
 
-  // Add a marker.
+  // Add a marker used to detect if the component is presentable.
   prototype[SYMBOL] = true
 
   // This getter will be useful for debugging the actual presenter being rendered.
