@@ -31,37 +31,33 @@ export function presentable(targetComponent:Class<Component>) {
   // Add a marker used to detect if the component is presentable.
   prototype[SYMBOL] = true
 
-  // This getter will be useful for debugging the actual presenter being rendered.
-  Object.defineProperty(prototype, 'presenter', {
-    get() {
-      if (prototype.getPresenter)
-        return this.getPresenter()
+  // Add the default implementation for “getPresenter”.
+  if (!prototype.getPresenter) {
+    prototype.getPresenter = function() {
       return this.props.presenter || this.defaultPresenter
     }
-  })
+  }
 
-  // Hook used to allow other decorators to modify the properties and handlers
-  // before passing it down to the presenter.
-  prototype.renderPresenter = function(data) {
-    let { presenter: Presenter } = this
-    return !Presenter
-      ? null
-      : <Presenter presentable={{ instance: this, ...data }}/>
+  // Add the default implementation for “getPresentableData”.
+  if (!prototype.getPresentableData) {
+    prototype.getPresentableData = function() {
+      let result = {
+        props: { ...this.props },
+        state: { ...this.state }
+      }
+      delete result.props.presenter
+      return result
+    }
   }
 
   // Default rendering method.
   if (!prototype.render) {
     prototype.render = function() {
-      let data
-      if (!prototype.getPresentableData) {
-        data = {
-          props: { ...this.props },
-          state: { ...this.state }
-        }
-        delete data.props.presenter
-      } else
-        data = this.getPresentableData()
-      return this.renderPresenter(data)
+      let data = this.getPresentableData()
+      let Presenter = this.getPresenter()
+      return !Presenter
+        ? null
+        : <Presenter presentable={{ instance: this, ...data }}/>
     }
   }
 

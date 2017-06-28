@@ -96,17 +96,17 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       expect(WRAPPER).toMatchSnapshot()
     })
 
-    describe('Getter “presenter”', () => {
+    describe('Default method “getPresenter”', () => {
       it('returns “undefined” when no presenter is specified', () => {
         const WRAPPER = shallow(<SomeComponent/>)
         const INSTANCE = WRAPPER.instance()
-        expect(INSTANCE.presenter).toBeUndefined()
+        expect(INSTANCE.getPresenter()).toBeUndefined()
       })
 
       it('returns the used presenter', () => {
         const WRAPPER = shallow(<SomeComponent presenter={ProbedPresenter}/>)
         const INSTANCE = WRAPPER.instance()
-        expect(INSTANCE.presenter)
+        expect(INSTANCE.getPresenter())
           .toBe(ProbedPresenter)
       })
     })
@@ -152,24 +152,24 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       expect(WRAPPER).toMatchSnapshot()
     })
 
-    describe('Getter “presenter”', () => {
+    describe('Default method “getPresenter”', () => {
       it('returns the default presenter when none is specified', () => {
         const WRAPPER = shallow(<SomeComponent/>)
         const INSTANCE = WRAPPER.instance()
-        expect(INSTANCE.presenter)
+        expect(INSTANCE.getPresenter())
           .toBe(SomePresenter)
       })
 
       it('returns the used presenter', () => {
         const WRAPPER = shallow(<SomeComponent presenter={ProbedPresenter}/>)
         const INSTANCE = WRAPPER.instance()
-        expect(INSTANCE.presenter)
+        expect(INSTANCE.getPresenter())
           .toBe(ProbedPresenter)
       })
     })
   })
 
-  describe('With custom data', () => {
+  describe('Custom data', () => {
     @presentable
     class SomeComponent extends Component {
       static defaultProps = PROPS
@@ -186,7 +186,7 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
   })
 
 
-  describe('With custom presenter resolution', () => {
+  describe('Custom presenter resolution', () => {
     @presentable
     class SomeComponent extends Component {
       static defaultProps = PROPS
