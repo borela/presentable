@@ -7,9 +7,9 @@
   "scripts": {
     "clean": "rimraf \"build/!(.git)\"",
     "build": "npm run clean && babel src -d build --ignore **/__*__/** -s",
-    "dev": "jest src --watch",
+    "dev": "jest src --verbose --watch",
     "start": "npm run dev",
-    "test": "jest src"
+    "test": "jest src --verbose"
   },
   "repository": {
     "type": "git",
