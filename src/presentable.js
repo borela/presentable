@@ -29,7 +29,11 @@ export function presentable(targetComponent:Class<Component>) {
   let prototype = targetComponent.prototype
 
   // Add a marker used to detect if the component is presentable.
-  prototype[SYMBOL] = true
+  Object.defineProperty(prototype, SYMBOL, {
+    get() {
+      return true
+    }
+  })
 
   // Add the default implementation for “getPresenter”.
   if (!prototype.getPresenter) {
