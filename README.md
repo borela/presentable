@@ -42,11 +42,11 @@ class SomeComponent extends Component {
     return data
   }
 
-  // Optionally the method “getPresenter” can be defined so that a custom logic
+  // Optionally you can define the method “getPresenter” so that a custom logic
   // can be used to locate the target presenter. The default implementation is
   // as follows:
   getPresenter() {
-    return this.props.presenter || this.defaultPresenter || SomeOtherPresenter
+    return this.props.presenter || this.defaultPresenter
   }
 
   // The render method doesn’t need to be implemented; It’ll look for the method
