@@ -30,13 +30,11 @@
     "ui",
     "view"
   ],
-  "author": [
-    {
-      "name": "Alexandre Borela",
-      "email": "alexandre@borela.tech",
-      "url": "http://www.borela.tech"
-    }
-  ],
+  "author": {
+    "name": "Alexandre Borela",
+    "email": "alexandre@borela.tech",
+    "url": "http://www.borela.tech"
+  },
   "devDependencies": {
     "babel-preset-ctrine-web-lib": "^1.6.1",
     "ctrine-dev-preset": "^4.0.0",
