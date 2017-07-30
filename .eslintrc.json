@@ -1,4 +1,4 @@
 {
-  "extends": "ctrine-js-web",
+  "extends": "@ctrine/build-config",
   "parser": "Babel-ESLint"
 }
