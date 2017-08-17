@@ -23,7 +23,7 @@
 
 import React, { Component } from 'react'
 import { AlreadyPresentableException, defaultPresenter, presentable } from '..'
-import { render, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 
 const PROPS = { a: 1, b: 2, c: 3 }
 const CUSTOM_PROPS = { d: 4, e: 5, f: 6 }
@@ -74,8 +74,8 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     it('has the same constructor', () => {
       const WRAPPER = shallow(<DecoratedComponent/>)
       const INSTANCE = WRAPPER.instance()
-      expect(INSTANCE instanceof SomeComponent)
-        .toBe(true)
+      expect(INSTANCE)
+        .toBeInstanceOf(SomeComponent)
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
     })
@@ -86,14 +86,18 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     })
 
     it('is empty', () => {
-      const WRAPPER = render(<SomeComponent/>)
+      const WRAPPER = shallow(<SomeComponent/>)
       expect(WRAPPER.children().length)
         .toBe(0)
     })
 
     it('renders the specified presenter', () => {
-      const WRAPPER = render(<SomeComponent presenter={ProbedPresenter}/>)
-      expect(WRAPPER).toMatchSnapshot()
+      const RENDERED_PRESENTER = shallow(<SomeComponent presenter={ProbedPresenter}/>).dive()
+      expect(RENDERED_PRESENTER.equals(
+        <div>
+          ProbedPresenter!
+        </div>
+      )).toBe(true)
     })
 
     describe('Default method “getPresenter”', () => {
@@ -131,8 +135,8 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     it('has the same constructor', () => {
       const WRAPPER = shallow(<DecoratedComponent/>)
       const INSTANCE = WRAPPER.instance()
-      expect(INSTANCE instanceof SomeComponent)
-        .toBe(true)
+      expect(INSTANCE)
+        .toBeInstanceOf(SomeComponent)
       expect(Object.getPrototypeOf(INSTANCE).constructor)
         .toBe(SomeComponent)
     })
@@ -143,13 +147,21 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     })
 
     it('renders the default presenter', () => {
-      const WRAPPER = render(<SomeComponent/>)
-      expect(WRAPPER).toMatchSnapshot()
+      const RENDERED_PRESENTER = shallow(<SomeComponent/>).dive()
+      expect(RENDERED_PRESENTER.equals(
+        <div>
+          Ctrine!
+        </div>
+      )).toBe(true)
     })
 
     it('renders the specified presenter', () => {
-      const WRAPPER = render(<SomeComponent presenter={ProbedPresenter}/>)
-      expect(WRAPPER).toMatchSnapshot()
+      const RENDERED_PRESENTER = shallow(<SomeComponent presenter={ProbedPresenter}/>).dive()
+      expect(RENDERED_PRESENTER.equals(
+        <div>
+          ProbedPresenter!
+        </div>
+      )).toBe(true)
     })
 
     describe('Default method “getPresenter”', () => {
@@ -181,7 +193,7 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     }
 
     it('pass the custom data to the presenter', () => {
-      render(<SomeComponent presenter={CustomDataProbedPresenter}/>)
+      shallow(<SomeComponent presenter={CustomDataProbedPresenter}/>)
     })
   })
 
@@ -198,8 +210,12 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     }
 
     it('uses the presenter from the custom resolution method', () => {
-      const WRAPPER = render(<SomeComponent/>)
-      expect(WRAPPER).toMatchSnapshot()
+      const RENDERED_PRESENTER = shallow(<SomeComponent/>).dive()
+      expect(RENDERED_PRESENTER.equals(
+        <div>
+          ProbedPresenter!
+        </div>
+      )).toBe(true)
     })
   })
 })

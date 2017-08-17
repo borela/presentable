@@ -33,8 +33,8 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
   it('has the same constructor', () => {
     const WRAPPER = shallow(<DecoratedComponent/>)
     const INSTANCE = WRAPPER.instance()
-    expect(INSTANCE instanceof SomeComponent)
-      .toBe(true)
+    expect(INSTANCE)
+      .toBeInstanceOf(SomeComponent)
     expect(Object.getPrototypeOf(INSTANCE).constructor)
       .toBe(SomeComponent)
   })
