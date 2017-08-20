@@ -34,12 +34,7 @@ class SomeComponent extends Component {
   // transform/filter the props and state being passed to the presenter. The
   // default implementation is as follows:
   getPresentableData() {
-    let data = {
-      props: { ...this.props },
-      state: { ...this.state }
-    }
-    delete data.props.presenter
-    return data
+    return this.getDefaultPresentableData()
   }
 
   // Optionally you can define the method “getPresenter” so that a custom logic
