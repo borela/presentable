@@ -42,15 +42,19 @@ export function presentable(targetComponent:Class<Component>) {
     }
   }
 
+  prototype.getDefaultPresentableData = function() {
+    let result = {
+      props: { ...this.props },
+      state: { ...this.state }
+    }
+    delete result.props.presenter
+    return result
+  }
+
   // Add the default implementation for “getPresentableData”.
   if (!prototype.getPresentableData) {
     prototype.getPresentableData = function() {
-      let result = {
-        props: { ...this.props },
-        state: { ...this.state }
-      }
-      delete result.props.presenter
-      return result
+      return this.getDefaultPresentableData()
     }
   }
 
