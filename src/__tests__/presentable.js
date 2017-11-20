@@ -61,7 +61,7 @@ class CustomDataProbedPresenter extends Component {
 }
 
 describe('Decorator “presentable” applied on “SomeComponent”', () => {
-  describe('Without “defaultPresenter”', () => {
+  describe('without “defaultPresenter”', () => {
     // The decorator must implement the render method on demand.
     class SomeComponent extends Component {
       static defaultProps = PROPS
@@ -116,7 +116,7 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     })
   })
 
-  describe('With “defaultPresenter”', () => {
+  describe('with “defaultPresenter”', () => {
     class SomePresenter extends Component {
       render() {
         return <div>Ctrine!</div>
@@ -181,7 +181,7 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
     })
   })
 
-  describe('Custom data', () => {
+  describe('using custom data', () => {
     @presentable
     class SomeComponent extends Component {
       static defaultProps = PROPS
@@ -198,7 +198,7 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
   })
 
 
-  describe('Custom presenter resolution', () => {
+  describe('using presenter resolution', () => {
     @presentable
     class SomeComponent extends Component {
       static defaultProps = PROPS
