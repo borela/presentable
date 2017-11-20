@@ -9,7 +9,6 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations under
 // the License.
-// @flow
 
 import AlreadyPresentableException from './AlreadyPresentableException'
 import isPresentable from './isPresentable'
@@ -20,7 +19,7 @@ const SYMBOL = Symbol.for('presentable')
 /**
  * Add support for presenters for the target component.
  */
-export function presentable(targetComponent:Class<Component>) {
+export function presentable(targetComponent) {
   if (isPresentable(targetComponent)) {
     const COMPONENT_NAME = targetComponent.prototype.constructor.name
     throw new AlreadyPresentableException(`The component “${COMPONENT_NAME}” is already presentable.`)

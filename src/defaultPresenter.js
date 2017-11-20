@@ -9,15 +9,14 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations under
 // the License.
-// @flow
 
 import { Component } from 'react'
 
 /**
  * Set a getter with the default presenter on the target component.
  */
-export function defaultPresenter(defaultPresenter:Class<Component>) {
-  return (targetComponent:Component) => {
+export function defaultPresenter(defaultPresenter) {
+  return (targetComponent) => {
     let prototype = targetComponent.prototype
     Object.defineProperty(prototype, 'defaultPresenter', {
       get() {

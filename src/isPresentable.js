@@ -9,7 +9,6 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations under
 // the License.
-// @flow
 
 import { Component } from 'react'
 
@@ -18,7 +17,7 @@ const SYMBOL = Symbol.for('presentable')
 /**
  * Check if the target component supports presenters.
  */
-export function isPresentable(targetComponent:Class<Component>|Component) {
+export function isPresentable(targetComponent) {
   const PROTOTYPE = targetComponent instanceof Component
     ? Object.getPrototypeOf(targetComponent)
     : targetComponent.prototype
