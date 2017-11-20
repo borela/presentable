@@ -18,10 +18,12 @@ const SYMBOL = Symbol.for('presentable')
  * Check if the target component supports presenters.
  */
 export function isPresentable(targetComponent) {
+  if (!targetComponent)
+    return false
   const PROTOTYPE = targetComponent instanceof Component
     ? Object.getPrototypeOf(targetComponent)
     : targetComponent.prototype
-  return PROTOTYPE[SYMBOL] === true
+  return PROTOTYPE && PROTOTYPE[SYMBOL] === true || false
 }
 
 export default isPresentable
