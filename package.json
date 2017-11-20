@@ -1,6 +1,6 @@
 {
   "name": "presentable",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "description": "Decorator to facilitate the separation between smart and dumb ReactJS components.",
   "license": "Apache-2.0",
   "main": "build",
@@ -36,10 +36,10 @@
     "url": "http://www.borela.tech"
   },
   "devDependencies": {
-    "@ctrine/babel-preset-lib": "^3.0.0",
-    "@ctrine/toolbox": "^6.0.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "@ctrine/babel-preset-lib": "^3.3.1",
+    "@ctrine/toolbox": "^7.4.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
   },
   "peerDependencies": {
     "react": "^15.6.1 || ^16.0.0"
