@@ -10,9 +10,12 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+import Adapter from 'enzyme-adapter-react-16'
 import React, { Component } from 'react'
 import { defaultPresenter } from '..'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
+
+configure({ adapter: new Adapter() })
 
 describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
   class SomePresenter extends Component {
@@ -42,7 +45,6 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
   it('has a getter “defaultPresenter”', () => {
     const WRAPPER = shallow(<SomeComponent/>)
     const INSTANCE = WRAPPER.instance()
-    expect(INSTANCE.defaultPresenter)
-      .toBe(SomePresenter)
+    expect(INSTANCE.defaultPresenter).toBe(SomePresenter)
   })
 })

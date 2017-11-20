@@ -21,9 +21,12 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+import Adapter from 'enzyme-adapter-react-16'
 import React, { Component } from 'react'
 import { AlreadyPresentableException, defaultPresenter, presentable } from '..'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
+
+configure({ adapter: new Adapter() })
 
 const PROPS = { a: 1, b: 2, c: 3 }
 const CUSTOM_PROPS = { d: 4, e: 5, f: 6 }
@@ -86,8 +89,7 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
 
     it('is empty', () => {
       const WRAPPER = shallow(<SomeComponent/>)
-      expect(WRAPPER.children().length)
-        .toBe(0)
+      expect(WRAPPER.children().length).toBe(0)
     })
 
     it('renders the specified presenter', () => {
@@ -109,8 +111,7 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       it('returns the used presenter', () => {
         const WRAPPER = shallow(<SomeComponent presenter={ProbedPresenter}/>)
         const INSTANCE = WRAPPER.instance()
-        expect(INSTANCE.getPresenter())
-          .toBe(ProbedPresenter)
+        expect(INSTANCE.getPresenter()).toBe(ProbedPresenter)
       })
     })
   })
@@ -194,7 +195,6 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
       shallow(<SomeComponent presenter={CustomDataProbedPresenter}/>)
     })
   })
-
 
   describe('using presenter resolution', () => {
     @presentable
