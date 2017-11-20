@@ -80,9 +80,8 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
         .toBe(SomeComponent)
     })
 
-    it('shows an error if apllied multiple times', () => {
-      expect(() => presentable(SomeComponent))
-        .toThrow(AlreadyPresentableException)
+    it('allows the decorator to be applied multiple times', () => {
+      expect(() => presentable(SomeComponent)).not.toThrow()
     })
 
     it('is empty', () => {
@@ -141,9 +140,8 @@ describe('Decorator “presentable” applied on “SomeComponent”', () => {
         .toBe(SomeComponent)
     })
 
-    it('shows an error if apllied multiple times', () => {
-      expect(() => presentable(SomeComponent))
-        .toThrow(AlreadyPresentableException)
+    it('allows the decorator to be applied multiple times', () => {
+      expect(() => presentable(SomeComponent)).not.toThrow(AlreadyPresentableException)
     })
 
     it('renders the default presenter', () => {

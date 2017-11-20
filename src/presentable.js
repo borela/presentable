@@ -10,9 +10,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import AlreadyPresentableException from './AlreadyPresentableException'
 import isPresentable from './isPresentable'
-import React, { Component } from 'react'
+import React from 'react'
 
 const SYMBOL = Symbol.for('presentable')
 
@@ -20,10 +19,8 @@ const SYMBOL = Symbol.for('presentable')
  * Add support for presenters for the target component.
  */
 export function presentable(targetComponent) {
-  if (isPresentable(targetComponent)) {
-    const COMPONENT_NAME = targetComponent.prototype.constructor.name
-    throw new AlreadyPresentableException(`The component “${COMPONENT_NAME}” is already presentable.`)
-  }
+  if (isPresentable(targetComponent))
+    return
 
   let prototype = targetComponent.prototype
 
