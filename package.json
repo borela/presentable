@@ -5,8 +5,8 @@
   "license": "Apache-2.0",
   "main": "build",
   "scripts": {
-    "clean": "rimraf \"build/!(.git)\"",
     "build": "npm run clean && babel src -d build --ignore **/__*__/** -s",
+    "clean": "rimraf \"build/!(.git)\"",
     "dev": "jest src --verbose --watch",
     "start": "npm run dev",
     "test": "jest src --verbose"
