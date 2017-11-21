@@ -20,7 +20,7 @@ const SYMBOL = Symbol.for('presentable')
  */
 export function presentable(targetComponent) {
   if (isPresentable(targetComponent))
-    return
+    return targetComponent
 
   let prototype = targetComponent.prototype
 
