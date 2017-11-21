@@ -40,6 +40,7 @@ export function presentable(targetComponent) {
 
   prototype.getDefaultPresentableData = function() {
     let result = {
+      context: { ...this.context },
       props: { ...this.props },
       state: { ...this.state }
     }
