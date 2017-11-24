@@ -18,10 +18,10 @@ class SomePresenter extends Component {
       // The instance is useful if you need to call the presentable’s methods,
       // an example would be a button having a method “press” or “click”.
       instance,
-      // It is recommended to access the state/props through this property instead
-      // of accessing them through the instance, this is by design to allow other
-      // decorators to modify/enhance the presentable property when needed.
-      state, props
+      // It is recommended to access the context/state/props through this property
+      // instead of accessing them through the instance, this is by design to allow
+      // other decorators to modify/enhance the presentable property when needed.
+      context, state, props
     } = this.props.presentable
     return <div>Ctrine!</div>
   }
