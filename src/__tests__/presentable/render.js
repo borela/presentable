@@ -17,22 +17,24 @@ describe('method ”getPresenter', () => {
   @presentable
   class SomeComponent extends Component {}
 
+  let instance
+  beforeEach(() => {
+    instance = new SomeComponent({ presenter: SomePresenter })
+  })
+
   it('calls “getPresenter” and “getPresentableData”', () => {
-    const INSTANCE = new SomeComponent({ presenter: SomePresenter })
-    const SPY_A = jest.spyOn(INSTANCE, 'getPresenter')
-    const SPY_B = jest.spyOn(INSTANCE, 'getPresentableData')
-    INSTANCE.render()
+    const SPY_A = jest.spyOn(instance, 'getPresenter')
+    const SPY_B = jest.spyOn(instance, 'getPresentableData')
+    instance.render()
     expect(SPY_A).toHaveBeenCalled()
     expect(SPY_B).toHaveBeenCalled()
   })
 
   it('pass data from “getPresentableData” to the specified presenter', () => {
-    const INSTANCE = new SomeComponent({ presenter: SomePresenter })
-    const DATA = INSTANCE.getPresentableData()
-    const RENDERED_PRESENTER = INSTANCE.render()
+    const DATA = instance.getPresentableData()
+    const RENDERED_PRESENTER = instance.render()
     expect(RENDERED_PRESENTER.props.presentable).toEqual({
-      instance: INSTANCE,
-      ...DATA
+      instance, ...DATA
     })
   })
 })
