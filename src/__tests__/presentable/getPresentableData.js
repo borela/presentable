@@ -22,7 +22,11 @@ describe('Method “getPresentable”', () => {
       state = STATE
     }
 
-    const COMP = new SomeComponent({ presenter: 'bad', ...PROPS }, CONTEXT)
+    const COMP = new SomeComponent(
+      { presenter: '...', ...PROPS },
+      CONTEXT
+    )
+
     expect(COMP.getPresentableData()).toEqual({
       context: CONTEXT,
       props: PROPS,
