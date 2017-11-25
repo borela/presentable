@@ -11,7 +11,7 @@
 // the License.
 
 import isPresentable from './isPresentable'
-import React from 'react'
+import React, { Component } from 'react'
 
 const SYMBOL = Symbol.for('presentable')
 
@@ -34,7 +34,13 @@ export function presentable(targetComponent) {
   // Add the default implementation for “getPresenter”.
   if (!prototype.getPresenter) {
     prototype.getPresenter = function() {
-      return this.props.presenter || this.defaultPresenter
+      const PRESENTER = this.props.presenter
+      if (PRESENTER && PRESENTER.prototype instanceof Component)
+        return PRESENTER
+      const DEFAULT_PRESENTER = this.defaultPresenter
+      if (DEFAULT_PRESENTER && DEFAULT_PRESENTER.prototype instanceof Component)
+        return DEFAULT_PRESENTER
+      return undefined
     }
   }
 
