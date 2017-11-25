@@ -55,11 +55,8 @@ export function presentable(targetComponent) {
   }
 
   // Add the default implementation for “getPresentableData”.
-  if (!prototype.getPresentableData) {
-    prototype.getPresentableData = function() {
-      return this.getDefaultPresentableData()
-    }
-  }
+  if (!prototype.getPresentableData)
+    prototype.getPresentableData = prototype.getDefaultPresentableData
 
   // Default rendering method.
   if (!prototype.render) {
