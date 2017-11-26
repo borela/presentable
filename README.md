@@ -10,7 +10,12 @@ npm install --save presentable
 
 ```js
 import React, { Component } from 'react'
-import { defaultPresenter, presentable } from 'presentable'
+import {
+  defaultPresenter,
+  presentable,
+  resolvePresenter,
+  resolvePresentableData
+} from 'presentable'
 
 class SomePresenter extends Component {
   render() {
@@ -34,14 +39,14 @@ class SomeComponent extends Component {
   // transform/filter the props and state being passed to the presenter. The
   // default implementation is as follows:
   getPresentableData() {
-    return this.getDefaultPresentableData()
+    return resolvePresentableData(this)
   }
 
   // Optionally you can define the method “getPresenter” so that a custom logic
   // can be used to locate the target presenter. The default implementation is
   // as follows:
   getPresenter() {
-    return this.props.presenter || this.defaultPresenter
+    return resolvePresenter(this)
   }
 
   // The render method doesn’t need to be implemented; It’ll look for the method
