@@ -10,9 +10,18 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-export * from './defaultPresenter'
-export * from './isPresentable'
-export * from './presentable'
-export * from './resolvePresentableData'
-export * from './resolvePresenter'
-export default from './presentable'
+import isPresentable from './isPresentable'
+
+export function resolvePresentableData(target) {
+  if (!isPresentable(target))
+    return undefined
+  let result = {
+    context: { ...target.context },
+    props: { ...target.props },
+    state: { ...target.state }
+  }
+  delete result.props.presenter
+  return result
+}
+
+export default resolvePresentableData

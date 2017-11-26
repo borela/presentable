@@ -12,6 +12,8 @@
 
 import isPresentable from './isPresentable'
 import React, { Component } from 'react'
+import resolvePresenter from './resolvePresenter'
+import resolvePresentableData from './resolvePresentableData'
 
 const SYMBOL = Symbol.for('presentable')
 
@@ -34,29 +36,16 @@ export function presentable(targetComponent) {
   // Add the default implementation for “getPresenter”.
   if (!prototype.getPresenter) {
     prototype.getPresenter = function() {
-      const PRESENTER = this.props.presenter
-      if (PRESENTER && PRESENTER.prototype instanceof Component)
-        return PRESENTER
-      const DEFAULT_PRESENTER = this.defaultPresenter
-      if (DEFAULT_PRESENTER && DEFAULT_PRESENTER.prototype instanceof Component)
-        return DEFAULT_PRESENTER
-      return undefined
+      return resolvePresenter(this)
     }
-  }
-
-  prototype.getDefaultPresentableData = function() {
-    let result = {
-      context: { ...this.context },
-      props: { ...this.props },
-      state: { ...this.state }
-    }
-    delete result.props.presenter
-    return result
   }
 
   // Add the default implementation for “getPresentableData”.
-  if (!prototype.getPresentableData)
-    prototype.getPresentableData = prototype.getDefaultPresentableData
+  if (!prototype.getPresentableData) {
+    prototype.getPresentableData = function() {
+      return resolvePresentableData(this)
+    }
+  }
 
   // Default rendering method.
   if (!prototype.render) {

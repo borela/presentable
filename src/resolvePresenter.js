@@ -10,9 +10,22 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-export * from './defaultPresenter'
-export * from './isPresentable'
-export * from './presentable'
-export * from './resolvePresentableData'
-export * from './resolvePresenter'
-export default from './presentable'
+import isPresentable from './isPresentable'
+import { Component } from 'react'
+
+export function resolvePresenter(target) {
+  if (!isPresentable(target))
+    return undefined
+
+  const PRESENTER = target?.props?.presenter
+  if (PRESENTER && PRESENTER.prototype instanceof Component)
+    return PRESENTER
+
+  const DEFAULT_PRESENTER = target?.defaultPresenter
+  if (DEFAULT_PRESENTER && DEFAULT_PRESENTER.prototype instanceof Component)
+    return DEFAULT_PRESENTER
+
+  return undefined
+}
+
+export default resolvePresenter
