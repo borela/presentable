@@ -23,7 +23,7 @@ describe('Method “getPresentable”', () => {
     }
 
     const COMP = new SomeComponent(
-      { presenter: '...', ...PROPS },
+      { presenter: null, ...PROPS },
       CONTEXT
     )
 
