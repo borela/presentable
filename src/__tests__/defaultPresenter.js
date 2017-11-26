@@ -10,8 +10,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import React, { Component } from 'react'
 import defaultPresenter from '../defaultPresenter'
+import React, { Component } from 'react'
 
 describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
   class SomePresenter extends Component {
