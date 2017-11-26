@@ -15,6 +15,10 @@ import resolvePresenter from '../../resolvePresenter'
 import { Component } from 'react'
 
 describe('method “getPresenter”', () => {
+  beforeEach(() => {
+    resolvePresenter.mockClear()
+  })
+
   it('calls “resolvePresenter”', () => {
     @presentable
     class SomeComponent extends Component {}

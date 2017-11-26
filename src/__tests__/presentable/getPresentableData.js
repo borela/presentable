@@ -15,6 +15,10 @@ import resolvePresentableData from '../../resolvePresentableData'
 import { Component } from 'react'
 
 describe('Method “getPresentableData”', () => {
+  beforeEach(() => {
+    resolvePresentableData.mockClear()
+  })
+
   it('calls “resolvePresentableData”', () => {
     @presentable
     class SomeComponent extends Component {}
