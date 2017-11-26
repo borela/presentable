@@ -14,7 +14,7 @@ import resolvePresentableData from '../resolvePresentableData'
 import { Component } from 'react'
 
 describe('Method “resolvePresentableData”', () => {
-  it('returns the context, props and state without the presenter in props', () => {
+  it('returns the data without presentable meta properties', () => {
     const CONTEXT = { contextA: 1, contextB: 2, contextC: 3 }
     const PROPS = { propA: 1, propB: 2, propC: 3 }
     const STATE = { stateA: 1, stateB: 2, stateC: 3 }
