@@ -10,12 +10,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import Adapter from 'enzyme-adapter-react-16'
 import React, { Component } from 'react'
-import { defaultPresenter } from '..'
-import { configure, shallow } from 'enzyme'
-
-configure({ adapter: new Adapter() })
+import defaultPresenter from '../defaultPresenter'
 
 describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
   class SomePresenter extends Component {
@@ -30,21 +26,16 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
     }
   }
 
-  // The decorator must modify the class instead of generating a new one.
   let DecoratedComponent = defaultPresenter(SomePresenter)(SomeComponent)
 
   it('has the same constructor', () => {
-    const WRAPPER = shallow(<DecoratedComponent/>)
-    const INSTANCE = WRAPPER.instance()
-    expect(INSTANCE)
-      .toBeInstanceOf(SomeComponent)
-    expect(Object.getPrototypeOf(INSTANCE).constructor)
-      .toBe(SomeComponent)
+    const INSTANCE = new DecoratedComponent
+    expect(INSTANCE).toBeInstanceOf(SomeComponent)
+    expect(Object.getPrototypeOf(INSTANCE).constructor).toBe(SomeComponent)
   })
 
   it('has a getter “defaultPresenter”', () => {
-    const WRAPPER = shallow(<SomeComponent/>)
-    const INSTANCE = WRAPPER.instance()
+    const INSTANCE = new SomeComponent
     expect(INSTANCE.defaultPresenter).toBe(SomePresenter)
   })
 })

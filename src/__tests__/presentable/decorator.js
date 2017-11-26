@@ -10,18 +10,17 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+import presentable from '../../presentable'
 import { Component } from 'react'
-import { presentable } from '../../presentable'
 
 describe('Decorator “presentable” applied on a component', () => {
-  @presentable
   class SomeComponent extends Component {}
-
-  let instance = new SomeComponent
+  let DecoratedComponent = presentable(SomeComponent)
 
   it('has the same constructor', () => {
-    expect(instance instanceof SomeComponent).toBe(true)
-    expect(Object.getPrototypeOf(instance).constructor).toBe(SomeComponent)
+    const INSTANCE = new DecoratedComponent
+    expect(INSTANCE instanceof SomeComponent).toBe(true)
+    expect(Object.getPrototypeOf(INSTANCE).constructor).toBe(SomeComponent)
   })
 
   it('allows the decorator to be applied multiple times', () => {

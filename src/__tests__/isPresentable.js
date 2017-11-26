@@ -10,8 +10,9 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+import isPresentable from '../isPresentable'
+import presentable from '../presentable'
 import { Component } from 'react'
-import { isPresentable, presentable } from '..'
 
 describe('Function “isPresentable”', () => {
   class NonPresentable extends Component {}
