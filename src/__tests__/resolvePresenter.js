@@ -25,14 +25,8 @@ describe('method “resolvePresenter”', () => {
   @defaultPresenter(SomeDefaultPresenter)
   class SomeComponentB extends Component {}
 
-  it('returns the specified presenter', () => {
-    const INSTANCE_A = new SomeComponentA({ presenter: SomePresenter })
-    const INSTANCE_B = new SomeComponentB({ presenter: SomePresenter })
-    expect(resolvePresenter(INSTANCE_A)).toBe(SomePresenter)
-    expect(resolvePresenter(INSTANCE_B)).toBe(SomePresenter)
-  })
-
   class SomeClass {}
+
   const BOGUS_PRESENTERS = [
     [ undefined ],
     [ null ],
@@ -42,6 +36,13 @@ describe('method “resolvePresenter”', () => {
     [ 42 ],
     [ () => SomeClass ]
   ]
+
+  it('returns the specified presenter', () => {
+    const INSTANCE_A = new SomeComponentA({ presenter: SomePresenter })
+    const INSTANCE_B = new SomeComponentB({ presenter: SomePresenter })
+    expect(resolvePresenter(INSTANCE_A)).toBe(SomePresenter)
+    expect(resolvePresenter(INSTANCE_B)).toBe(SomePresenter)
+  })
 
   each(BOGUS_PRESENTERS)
     .it('returns the default pressenter for “%s”', presenter => {

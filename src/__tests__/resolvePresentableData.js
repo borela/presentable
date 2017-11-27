@@ -14,11 +14,23 @@ import resolvePresentableData from '../resolvePresentableData'
 import { Component } from 'react'
 
 describe('Method “resolvePresentableData”', () => {
-  it('returns the data without presentable meta properties', () => {
-    const CONTEXT = { contextA: 1, contextB: 2, contextC: 3 }
-    const PROPS = { propA: 1, propB: 2, propC: 3 }
-    const STATE = { stateA: 1, stateB: 2, stateC: 3 }
+  const CONTEXT = { contextA: 1, contextB: 2, contextC: 3 }
+  const PROPS = { propA: 1, propB: 2, propC: 3 }
+  const STATE = { stateA: 1, stateB: 2, stateC: 3 }
 
+  class SomeClass {}
+
+  const BOGUS_PRESENTABLES = [
+    [ undefined ],
+    [ null ],
+    [ '' ],
+    [ '123' ],
+    [ 0 ],
+    [ 42 ],
+    [ () => SomeClass ]
+  ]
+
+  it('returns the data without presentable meta properties', () => {
     @presentable
     class SomeComponent extends Component {
       state = STATE
@@ -35,17 +47,6 @@ describe('Method “resolvePresentableData”', () => {
       state: STATE
     })
   })
-
-  class SomeClass {}
-  const BOGUS_PRESENTABLES = [
-    [ undefined ],
-    [ null ],
-    [ '' ],
-    [ '123' ],
-    [ 0 ],
-    [ 42 ],
-    [ () => SomeClass ]
-  ]
 
   each(BOGUS_PRESENTABLES)
     .it('returns undefined for “%s”', presentable => {
