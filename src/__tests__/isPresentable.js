@@ -20,23 +20,32 @@ describe('Function “isPresentable”', () => {
   @presentable
   class SomeComponent extends Component {}
 
-  const PRESENTABLE_INSTANCE = new SomeComponent
-  const NON_PRESENTABLE_INSTANCE = new NonPresentable
+  const PRESENTABLES = [
+    SomeComponent,
+    new SomeComponent
+  ]
 
-  it('returns “true” for a class or presentable’s instances', () => {
-    expect(isPresentable(SomeComponent)).toBe(true)
-    expect(isPresentable(PRESENTABLE_INSTANCE)).toBe(true)
-  })
+  const NON_PRESENTABLES = [
+    NonPresentable,
+    new NonPresentable,
+    null,
+    undefined,
+    false,
+    '',
+    '...',
+    42,
+    {}
+  ]
 
-  it('returns “false” for any other value', () => {
-    expect(isPresentable(NonPresentable)).toBe(false)
-    expect(isPresentable(NON_PRESENTABLE_INSTANCE)).toBe(false)
-    expect(isPresentable(null)).toBe(false)
-    expect(isPresentable(undefined)).toBe(false)
-    expect(isPresentable(false)).toBe(false)
-    expect(isPresentable('')).toBe(false)
-    expect(isPresentable('...')).toBe(false)
-    expect(isPresentable(42)).toBe(false)
-    expect(isPresentable({})).toBe(false)
-  })
+  for (const PRESENTABLE of PRESENTABLES) {
+    it(`returns “true” for “${PRESENTABLE}”`, () => {
+      expect(isPresentable(PRESENTABLE)).toBe(true)
+    })
+  }
+
+  for (const NON_PRESENTABLE of NON_PRESENTABLES) {
+    it(`returns “false” for “${NON_PRESENTABLE}”`, () => {
+      expect(isPresentable(NonPresentable)).toBe(false)
+    })
+  }
 })

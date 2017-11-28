@@ -7,8 +7,9 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an “AS IS” BASIS, WITHOUT
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations under
+// the License.
 
-import each from 'jest-each'
 import presentable from '../presentable'
 import resolvePresentableData from '../resolvePresentableData'
 import { Component } from 'react'
@@ -27,7 +28,7 @@ describe('Method “resolvePresentableData”', () => {
     [ '123' ],
     [ 0 ],
     [ 42 ],
-    [ () => SomeClass ]
+    [ SomeClass ]
   ]
 
   it('returns the data without presentable meta properties', () => {
@@ -48,8 +49,9 @@ describe('Method “resolvePresentableData”', () => {
     })
   })
 
-  each(BOGUS_PRESENTABLES)
-    .it('returns undefined for “%s”', presentable => {
-      expect(resolvePresentableData(presentable)).toBeUndefined()
+  for (const PRESENTABLE of BOGUS_PRESENTABLES) {
+    it(`returns undefined for “${PRESENTABLE}”`, () => {
+      expect(resolvePresentableData(PRESENTABLE)).toBeUndefined()
     })
+  }
 })
