@@ -25,7 +25,7 @@ describe('Method “resolvePresentableData”', () => {
     [ undefined ],
     [ null ],
     [ '' ],
-    [ '123' ],
+    [ '...' ],
     [ 0 ],
     [ 42 ],
     [ SomeClass ]

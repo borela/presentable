@@ -9,7 +9,6 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 
 import defaultPresenter from '../defaultPresenter'
-import each from 'jest-each'
 import presentable from '../presentable'
 import resolvePresenter from '../resolvePresenter'
 import { Component } from 'react'
@@ -31,10 +30,10 @@ describe('method “resolvePresenter”', () => {
     [ undefined ],
     [ null ],
     [ '' ],
-    [ '123' ],
+    [ '...' ],
     [ 0 ],
     [ 42 ],
-    [ () => SomeClass ]
+    [ SomeClass ]
   ]
 
   it('returns the specified presenter', () => {
@@ -44,15 +43,17 @@ describe('method “resolvePresenter”', () => {
     expect(resolvePresenter(INSTANCE_B)).toBe(SomePresenter)
   })
 
-  each(BOGUS_PRESENTERS)
-    .it('returns the default pressenter for “%s”', presenter => {
-      const INSTANCE = new SomeComponentB({ presenter })
+  for (const BOGUS_PRESENTER of BOGUS_PRESENTERS) {
+    it(`returns the default pressenter for “${BOGUS_PRESENTER}”`, () => {
+      const INSTANCE = new SomeComponentB({ presenter: BOGUS_PRESENTER })
       expect(resolvePresenter(INSTANCE)).toBe(SomeDefaultPresenter)
     })
+  }
 
-  each(BOGUS_PRESENTERS)
-    .it('returns undefined for “%s”', presenter => {
-      const INSTANCE = new SomeComponentA({ presenter })
+  for (const BOGUS_PRESENTER of BOGUS_PRESENTERS) {
+    it(`returns undefined for “${BOGUS_PRESENTER}”`, () => {
+      const INSTANCE = new SomeComponentA({ presenter: BOGUS_PRESENTER })
       expect(resolvePresenter(INSTANCE)).toBeUndefined()
     })
+  }
 })
