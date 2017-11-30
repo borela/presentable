@@ -11,8 +11,9 @@
 // the License.
 
 import isPresentable from './isPresentable'
+import { Component } from 'react'
 
-export function resolvePresentableData(target) {
+export function resolvePresentableData(target:Component<*>) {
   if (!isPresentable(target))
     return undefined
   let result = {

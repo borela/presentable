@@ -13,7 +13,7 @@
 import isPresentable from './isPresentable'
 import { Component } from 'react'
 
-export function resolvePresenter(target) {
+export function resolvePresenter(target:Component<*>) {
   if (!isPresentable(target))
     return undefined
 

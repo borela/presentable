@@ -17,7 +17,7 @@ const SYMBOL = Symbol.for('presentable')
 /**
  * Check if the target component supports presenters.
  */
-export function isPresentable(targetComponent) {
+export function isPresentable(targetComponent:Component<*>) {
   if (!targetComponent)
     return false
   const PROTOTYPE = targetComponent instanceof Component

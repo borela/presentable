@@ -15,8 +15,8 @@ import { Component } from 'react'
 /**
  * Set a getter with the default presenter on the target component.
  */
-export function defaultPresenter(defaultPresenter) {
-  return (targetComponent) => {
+export function defaultPresenter(defaultPresenter:Component<*>) {
+  return (targetComponent:Component<*>) => {
     let prototype = targetComponent.prototype
     Object.defineProperty(prototype, 'defaultPresenter', {
       get() {
