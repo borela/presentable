@@ -1,4 +1,8 @@
 [![Presentable](art/logo.png)][presentable]
+
+[![React](https://img.shields.io/:react-%5E15%7C%5E16-green.svg?style=flat-square)][presentable]
+[![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)][presentable]
+
 Decorator to facilitate the separation between smart and dumb ReactJS components.
 
 ## Installation
@@ -60,4 +64,5 @@ class SomeComponent extends Component {
 // If necessary, a specific presenter can be set as follows:
 <SomeComponent presenter={SomePresenter}/>
 ```
+
 [presentable]: //github.com/borela/presentable
