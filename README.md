@@ -1,3 +1,4 @@
+[![Presentable](art/logo.png)][presentable]
 Decorator to facilitate the separation between smart and dumb ReactJS components.
 
 ## Installation
@@ -59,3 +60,4 @@ class SomeComponent extends Component {
 // If necessary, a specific presenter can be set as follows:
 <SomeComponent presenter={SomePresenter}/>
 ```
+[presentable]: //github.com/borela/presentable
