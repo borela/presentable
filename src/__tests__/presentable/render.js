@@ -13,29 +13,29 @@
 import presentable from '../../presentable'
 import { Component } from 'react'
 
-describe('method ”getPresenter', () => {
-  class SomePresenter extends Component {}
+describe('method ”getView', () => {
+  class SomeView extends Component {}
 
   @presentable
   class SomeComponent extends Component {}
 
   let instance
   beforeEach(() => {
-    instance = new SomeComponent({ presenter: SomePresenter })
+    instance = new SomeComponent({ view: SomeView })
   })
 
-  it('calls “getPresenter” and “getPresentableData”', () => {
-    const SPY_A = jest.spyOn(instance, 'getPresenter')
-    const SPY_B = jest.spyOn(instance, 'getPresentableData')
+  it('calls “getView” and “getViewData”', () => {
+    const SPY_A = jest.spyOn(instance, 'getView')
+    const SPY_B = jest.spyOn(instance, 'getViewData')
     instance.render()
     expect(SPY_A).toHaveBeenCalled()
     expect(SPY_B).toHaveBeenCalled()
   })
 
-  it('pass data from “getPresentableData” to the specified presenter', () => {
-    const DATA = instance.getPresentableData()
-    const RENDERED_PRESENTER = instance.render()
-    expect(RENDERED_PRESENTER.props.presentable).toEqual({
+  it('pass data from “getViewData” to the specified view', () => {
+    const DATA = instance.getViewData()
+    const RENDERED_VIEW = instance.render()
+    expect(RENDERED_VIEW.props.presentable).toEqual({
       instance, ...DATA
     })
   })

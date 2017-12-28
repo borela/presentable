@@ -10,33 +10,33 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-jest.mock('../../resolvePresenter')
+jest.mock('../../resolveView')
 
 import presentable from '../../presentable'
-import resolvePresenter from '../../resolvePresenter'
+import resolveView from '../../resolveView'
 import { Component } from 'react'
 
-describe('method “getPresenter”', () => {
+describe('method “getView”', () => {
   beforeEach(() => {
-    resolvePresenter.mockClear()
+    resolveView.mockClear()
   })
 
-  it('calls “resolvePresenter”', () => {
+  it('calls “resolveView”', () => {
     @presentable
     class SomeComponent extends Component {}
     const COMP = new SomeComponent
-    expect(COMP.getPresenter()).toBe(456)
-    expect(resolvePresenter).toHaveBeenCalled()
+    expect(COMP.getView()).toBe(456)
+    expect(resolveView).toHaveBeenCalled()
   })
 
   it('does not replace an existing implementation', () => {
     @presentable
     class SomeComponent extends Component {
-      getPresenter() {
+      getView() {
         return 42
       }
     }
     const COMP = new SomeComponent
-    expect(COMP.getPresenter()).toBe(42)
+    expect(COMP.getView()).toBe(42)
   })
 })

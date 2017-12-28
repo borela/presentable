@@ -10,33 +10,33 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-jest.mock('../../resolvePresentableData')
+jest.mock('../../resolveViewData')
 
 import presentable from '../../presentable'
-import resolvePresentableData from '../../resolvePresentableData'
+import resolveViewData from '../../resolveViewData'
 import { Component } from 'react'
 
-describe('Method “getPresentableData”', () => {
+describe('Method “getViewData”', () => {
   beforeEach(() => {
-    resolvePresentableData.mockClear()
+    resolveViewData.mockClear()
   })
 
-  it('calls “resolvePresentableData”', () => {
+  it('calls “resolveViewData”', () => {
     @presentable
     class SomeComponent extends Component {}
     const COMP = new SomeComponent
-    expect(COMP.getPresentableData()).toBe(123)
-    expect(resolvePresentableData).toHaveBeenCalled()
+    expect(COMP.getViewData()).toBe(123)
+    expect(resolveViewData).toHaveBeenCalled()
   })
 
   it('does not replace an existing implementation', () => {
     @presentable
     class SomeComponent extends Component {
-      getPresentableData() {
+      getViewData() {
         return 42
       }
     }
     const COMP = new SomeComponent
-    expect(COMP.getPresentableData()).toBe(42)
+    expect(COMP.getViewData()).toBe(42)
   })
 })

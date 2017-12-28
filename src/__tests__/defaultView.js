@@ -10,11 +10,11 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import defaultPresenter from '../defaultPresenter'
+import defaultView from '../defaultView'
 import React, { Component } from 'react'
 
-describe('Decorator “defaultPresenter” applied on “SomeComponent”', () => {
-  class SomePresenter extends Component {
+describe('Decorator “defaultView” applied on “SomeComponent”', () => {
+  class SomeView extends Component {
     render() {
       return <div>Ctrine!</div>
     }
@@ -26,7 +26,7 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
     }
   }
 
-  let DecoratedComponent = defaultPresenter(SomePresenter)(SomeComponent)
+  let DecoratedComponent = defaultView(SomeView)(SomeComponent)
 
   it('has the same constructor', () => {
     const INSTANCE = new DecoratedComponent
@@ -34,8 +34,8 @@ describe('Decorator “defaultPresenter” applied on “SomeComponent”', () =
     expect(Object.getPrototypeOf(INSTANCE).constructor).toBe(SomeComponent)
   })
 
-  it('has a getter “defaultPresenter”', () => {
+  it('has a getter “defaultView”', () => {
     const INSTANCE = new SomeComponent
-    expect(INSTANCE.defaultPresenter).toBe(SomePresenter)
+    expect(INSTANCE.defaultView).toBe(SomeView)
   })
 })

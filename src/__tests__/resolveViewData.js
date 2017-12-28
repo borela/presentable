@@ -11,10 +11,10 @@
 // the License.
 
 import presentable from '../presentable'
-import resolvePresentableData from '../resolvePresentableData'
+import resolveViewData from '../resolveViewData'
 import { Component } from 'react'
 
-describe('Method “resolvePresentableData”', () => {
+describe('Method “resolveViewData”', () => {
   const CONTEXT = { contextA: 1, contextB: 2, contextC: 3 }
   const PROPS = { propA: 1, propB: 2, propC: 3 }
   const STATE = { stateA: 1, stateB: 2, stateC: 3 }
@@ -38,11 +38,11 @@ describe('Method “resolvePresentableData”', () => {
     }
 
     const COMP = new SomeComponent(
-      { presenter: null, ...PROPS },
+      { view: null, ...PROPS },
       CONTEXT
     )
 
-    expect(resolvePresentableData(COMP)).toEqual({
+    expect(resolveViewData(COMP)).toEqual({
       context: CONTEXT,
       props: PROPS,
       state: STATE
@@ -51,7 +51,7 @@ describe('Method “resolvePresentableData”', () => {
 
   for (const PRESENTABLE of BOGUS_PRESENTABLES) {
     it(`returns undefined for “${PRESENTABLE}”`, () => {
-      expect(resolvePresentableData(PRESENTABLE)).toBeUndefined()
+      expect(resolveViewData(PRESENTABLE)).toBeUndefined()
     })
   }
 })
