@@ -36,10 +36,10 @@
     "url": "http://www.borela.tech"
   },
   "devDependencies": {
-    "@ctrine/babel-preset-lib": "^3.3.1",
-    "@ctrine/toolbox": "^7.4.0",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1"
+    "@ctrine/babel-preset-lib": "^3.4.1",
+    "@ctrine/toolbox": "^7.5.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "peerDependencies": {
     "react": "^15.6.1 || ^16.0.0"
