@@ -3,8 +3,7 @@
 [![React](https://img.shields.io/:react-%5E15%7C%5E16-green.svg?style=flat-square)][presentable]
 [![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)][presentable]
 
-Decorator to facilitate the separation between the view (presenter) and view
-model (presentable).
+Decorator to facilitate the separation between the view and view model (presentable).
 
 ## Installation
 
@@ -18,14 +17,13 @@ npm install --save presentable
 import React, { Component } from 'react'
 import { presentable } from 'presentable'
 
-// The render method does not need to be implemented in the presentable component.
+// The render method does not need to be implemented in the view model.
 @presentable
 class MyViewModel extends Component {
   // Write your view model state and properties.
 }
 
-// If you try to render the view model without a presenter, it won’t render
-// anything.
+// If you try to render the view model without a view, it won’t render anything.
 <MyViewModel/>
 // Result: nothing
 ```
@@ -33,35 +31,36 @@ class MyViewModel extends Component {
 ## Adding the view
 
 ```js
-// The view is just a normal react component.
+// The view is just a normal react component, it can even be a stateless component.
 class SomeView extends Component {
   render() {
     // You can access the context, state and props from the view model.
-    let { context, state, props } = this.props.presentable
+    let { context, state, props } = this.props.viewModel
     // Write your view logic.
     return <span {...props}/>
   }
 }
 
 // Let’s render the previous view model with it.
-<MyViewModel a="1", b="2", c="3" presenter={SomeView}/>
+<MyViewModel a="1", b="2", c="3" view={SomeView}/>
 // Result: <span a="1" b="2" c="3"></span>
 ```
 
-
-## Default presenter
+## Default view
 
 ```js
-// Sometimes you want your view model to have a default view. The order of the
-// decorators is not important.
+import { defaultView } from 'presentable'
+
+// Sometimes you want your view model to have a default view.
 @presentable
-@defaultPresenter(SomeView)
+@defaultView(SomeView)
 class AnotherViewModel extends Component {
   // ...
 }
 
-// As you can see, we are not passing the presenter this time, but we should expect
-// the same result as the previous one since we are using the same view.
+// As you can see, we are not passing the view as a property this time, but we
+// should expect the same result as the previous one since we are using the same
+// view to render a similar model.
 <AnotherViewModel a="1", b="2", c="3"/>
 // Result: <span a="1" b="2" c="3"></span>
 ```
@@ -72,38 +71,35 @@ class AnotherViewModel extends Component {
 import React, { Component } from 'react'
 import {
   presentable,
-  resolvePresenter,
-  resolvePresentableData
+  resolveView,
+  resolveViewData
 } from 'presentable'
 
-class SomePresenter extends Component {
+class SomeView extends Component {
   render() {
     let {
       // You can access the view model instance directly if you need it, but
       // try to avoid it at all costs.
       instance
-    } = this.props.presentable
+    } = this.props.viewModel
     // ...
   }
 }
 
 @presentable
-class SomeComponent extends Component {
-  // Optionally you can define the “getPresentableData” method if you need to
-  // transform/filter the props and state being passed to the view. The default
-  // implementation is as follows:
-  getPresentableData() {
-    return resolvePresentableData(this)
+class SomeViewModel extends Component {
+  // Optionally you can define this method if you need to transform/filter the
+  // props and state being passed to the view. The default implementation is as
+  // follows:
+  getViewData() {
+    return resolveViewData(this)
   }
 
-  // Optionally you can define the method “getPresenter” so that a custom logic
-  // can be used to locate the view. The default implementation is as follows:
-  getPresenter() {
-    return resolvePresenter(this)
+  // Optionally you can define this method to use a custom logic to locate the
+  // view. The default implementation is as follows:
+  getView() {
+    return resolveView(this)
   }
-
-  // The render method doesn’t need to be implemented; It’ll look for the method
-  // “getPresenter” to decide which presenter to use.
 }
 ```
 
