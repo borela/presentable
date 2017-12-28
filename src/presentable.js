@@ -12,14 +12,11 @@
 
 import isPresentable from './isPresentable'
 import React, { Component } from 'react'
-import resolvePresenter from './resolvePresenter'
-import resolvePresentableData from './resolvePresentableData'
+import resolveView from './resolveView'
+import resolveViewData from './resolveViewData'
 
 const SYMBOL = Symbol.for('presentable')
 
-/**
- * Add support for presenters for the target component.
- */
 export function presentable(targetComponent) {
   if (isPresentable(targetComponent))
     return targetComponent
@@ -33,28 +30,25 @@ export function presentable(targetComponent) {
     }
   })
 
-  // Add the default implementation for “getPresenter”.
-  if (!prototype.getPresenter) {
-    prototype.getPresenter = function() {
-      return resolvePresenter(this)
+  if (!prototype.getView) {
+    prototype.getView = function() {
+      return resolveView(this)
     }
   }
 
-  // Add the default implementation for “getPresentableData”.
-  if (!prototype.getPresentableData) {
-    prototype.getPresentableData = function() {
-      return resolvePresentableData(this)
+  if (!prototype.getViewData) {
+    prototype.getViewData = function() {
+      return resolveViewData(this)
     }
   }
 
-  // Default rendering method.
   if (!prototype.render) {
     prototype.render = function() {
-      let data = this.getPresentableData()
-      let Presenter = this.getPresenter()
-      return !Presenter
+      let data = this.getViewData()
+      let View = this.getView()
+      return !View
         ? null
-        : <Presenter presentable={{ instance: this, ...data }}/>
+        : <View presentable={{ instance: this, ...data }}/>
     }
   }
 

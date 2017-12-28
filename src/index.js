@@ -10,9 +10,9 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-export * from './defaultPresenter'
+export * from './defaultView'
 export * from './isPresentable'
 export * from './presentable'
-export * from './resolvePresentableData'
-export * from './resolvePresenter'
+export * from './resolveViewData'
+export * from './resolveView'
 export default from './presentable'

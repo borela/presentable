@@ -13,7 +13,7 @@
 import isPresentable from './isPresentable'
 import { Component } from 'react'
 
-export function resolvePresentableData(target:Component<*>) {
+export function resolveViewData(target:Component<*>) {
   if (!isPresentable(target))
     return undefined
   let result = {
@@ -21,8 +21,8 @@ export function resolvePresentableData(target:Component<*>) {
     props: { ...target.props },
     state: { ...target.state }
   }
-  delete result.props.presenter
+  delete result.props.view
   return result
 }
 
-export default resolvePresentableData
+export default resolveViewData

@@ -15,7 +15,7 @@ import { Component } from 'react'
 const SYMBOL = Symbol.for('presentable')
 
 /**
- * Check if the target component supports presenters.
+ * Check if the target component supports views.
  */
 export function isPresentable(targetComponent:Component<*>) {
   if (!targetComponent)

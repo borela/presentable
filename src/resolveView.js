@@ -13,19 +13,19 @@
 import isPresentable from './isPresentable'
 import { Component } from 'react'
 
-export function resolvePresenter(target:Component<*>) {
+export function resolveView(target:Component<*>) {
   if (!isPresentable(target))
     return undefined
 
-  const PRESENTER = target?.props?.presenter
-  if (PRESENTER && PRESENTER.prototype instanceof Component)
-    return PRESENTER
+  const VIEW = target?.props?.view
+  if (VIEW && VIEW.prototype instanceof Component)
+    return VIEW
 
-  const DEFAULT_PRESENTER = target?.defaultPresenter
-  if (DEFAULT_PRESENTER && DEFAULT_PRESENTER.prototype instanceof Component)
-    return DEFAULT_PRESENTER
+  const DEFAULT_VIEW = target?.defaultView
+  if (DEFAULT_VIEW && DEFAULT_VIEW.prototype instanceof Component)
+    return DEFAULT_VIEW
 
   return undefined
 }
 
-export default resolvePresenter
+export default resolveView

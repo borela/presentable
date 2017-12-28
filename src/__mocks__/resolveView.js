@@ -10,5 +10,5 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-export let resolvePresenter = jest.fn(() => 456)
-export default resolvePresenter
+export let resolveView = jest.fn(() => 456)
+export default resolveView

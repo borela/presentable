@@ -13,18 +13,18 @@
 import { Component } from 'react'
 
 /**
- * Set a getter with the default presenter on the target component.
+ * Set a getter with the default view on the target component.
  */
-export function defaultPresenter(defaultPresenter:Component<*>) {
+export function defaultView(defaultView:Component<*>) {
   return (targetComponent:Component<*>) => {
     let prototype = targetComponent.prototype
-    Object.defineProperty(prototype, 'defaultPresenter', {
+    Object.defineProperty(prototype, 'defaultView', {
       get() {
-        return defaultPresenter
+        return defaultView
       }
     })
     return targetComponent
   }
 }
 
-export default defaultPresenter
+export default defaultView

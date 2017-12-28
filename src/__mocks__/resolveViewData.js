@@ -10,5 +10,5 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-export let resolvePresentableData = jest.fn(() => 123)
-export default resolvePresentableData
+export let resolveViewData = jest.fn(() => 123)
+export default resolveViewData
