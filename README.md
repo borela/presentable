@@ -3,7 +3,8 @@
 [![React](https://img.shields.io/:react-%5E15%7C%5E16-green.svg?style=flat-square)][presentable]
 [![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)][presentable]
 
-Decorator to facilitate the separation between the view and view model.
+Decorator to facilitate the separation between the view (presenter) and view
+model (presentable).
 
 ## Installation
 
