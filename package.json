@@ -1,7 +1,7 @@
 {
   "name": "presentable",
-  "version": "4.1.2",
-  "description": "Decorator to facilitate the separation between smart and dumb ReactJS components.",
+  "version": "5.0.0",
+  "description": "Decorator to facilitate the separation between the view and view model.",
   "license": "Apache-2.0",
   "main": "build",
   "scripts": {
@@ -22,12 +22,14 @@
   "keywords": [
     "ctrine",
     "decorator",
+    "model",
     "presenter",
     "presentable",
     "react",
     "template",
     "templates",
     "ui",
+    "viewModel",
     "view"
   ],
   "author": {
