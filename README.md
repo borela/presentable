@@ -50,7 +50,7 @@ class SomeView extends Component {
 }
 
 // Let’s render the previous view model with it.
-<MyViewModel a="1", b="2", c="3" view={SomeView}/>
+<MyViewModel a="1" b="2" c="3" view={SomeView}/>
 // Result: <span a="1" b="2" c="3"></span>
 ```
 
@@ -69,7 +69,7 @@ class AnotherViewModel extends Component {
 // As you can see, we are not passing the view as a property this time, but we
 // should expect the same result as the previous one since we are using the same
 // view to render a similar model.
-<AnotherViewModel a="1", b="2", c="3"/>
+<AnotherViewModel a="1" b="2" c="3"/>
 // Result: <span a="1" b="2" c="3"></span>
 ```
 
