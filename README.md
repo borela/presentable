@@ -5,6 +5,14 @@
 
 Decorator to facilitate the separation between the view and view model (presentable).
 
+## Table of contents
+
+1. [Installation](#installation)
+2. [Basic usage](#basic-usage)
+3. [Adding the view](#adding-the-view)
+4. [Default view](#default-view)
+5. [Advanced usage](#advanced-usage)
+
 ## Installation
 
 ```sh
