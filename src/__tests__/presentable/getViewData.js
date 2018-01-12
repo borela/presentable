@@ -12,8 +12,8 @@
 
 jest.mock('../../resolveViewData')
 
-import presentable from '../../presentable'
-import resolveViewData from '../../resolveViewData'
+import { presentable } from '../..'
+import { resolveViewData } from '../..'
 import { Component } from 'react'
 
 describe('Method “getViewData”', () => {

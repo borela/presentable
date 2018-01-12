@@ -12,8 +12,8 @@
 
 jest.mock('../../resolveView')
 
-import presentable from '../../presentable'
-import resolveView from '../../resolveView'
+import { presentable } from '../..'
+import { resolveView } from '../..'
 import { Component } from 'react'
 
 describe('method “getView”', () => {

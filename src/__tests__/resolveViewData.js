@@ -10,8 +10,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import presentable from '../presentable'
-import resolveViewData from '../resolveViewData'
+import { presentable } from '..'
+import { resolveViewData } from '..'
 import { Component } from 'react'
 
 describe('Method “resolveViewData”', () => {

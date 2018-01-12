@@ -10,7 +10,7 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import presentable from '../../presentable'
+import { presentable } from '../..'
 import { Component } from 'react'
 
 describe('Decorator “presentable” applied on a component', () => {

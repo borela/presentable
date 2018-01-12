@@ -10,7 +10,7 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import defaultView from '../defaultView'
+import { defaultView } from '..'
 import React, { Component } from 'react'
 
 describe('Decorator “defaultView” applied on “SomeComponent”', () => {
