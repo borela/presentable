@@ -11,6 +11,7 @@
 // the License.
 
 import isPresentable from './isPresentable'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import resolveView from './resolveView'
 import resolveViewData from './resolveViewData'
@@ -29,6 +30,10 @@ export function presentable(targetComponent) {
       return true
     }
   })
+
+  if (!targetComponent.contextTypes)
+    targetComponent.contextTypes = {}
+  targetComponent.contextTypes.view = PropTypes.func
 
   if (!prototype.getView) {
     prototype.getView = function() {

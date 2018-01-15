@@ -15,11 +15,15 @@ import { Component } from 'react'
 
 export class ContextView extends Component {
   static childContextTypes = {
-    view: PropTypes.object
+    view: PropTypes.func
   }
 
   getChildContext() {
     return { view: this.props.view }
+  }
+
+  render() {
+    return this.props.children
   }
 }
 

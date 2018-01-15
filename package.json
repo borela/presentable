@@ -1,6 +1,6 @@
 {
   "name": "presentable",
-  "version": "5.3.0",
+  "version": "5.3.1",
   "description": "Decorator to facilitate the separation between the view and view model.",
   "license": "Apache-2.0",
   "main": "build",
