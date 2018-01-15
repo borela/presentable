@@ -15,6 +15,7 @@ import { Component } from 'react'
 
 describe('method “resolveView”', () => {
   class SomeView extends Component {}
+  class SomeContextView extends Component {}
   class SomeDefaultView extends Component {}
 
   @presentable
@@ -36,24 +37,42 @@ describe('method “resolveView”', () => {
     [ SomeClass ]
   ]
 
-  it('returns the specified view', () => {
-    const INSTANCE_A = new SomeComponentA({ view: SomeView })
-    const INSTANCE_B = new SomeComponentB({ view: SomeView })
-    expect(resolveView(INSTANCE_A)).toBe(SomeView)
-    expect(resolveView(INSTANCE_B)).toBe(SomeView)
+  describe('there’s a view in the context', () => {
+    it('returns the specified view', () => {
+      const INSTANCE_A = new SomeComponentA({ view: SomeView }, { view: SomeContextView })
+      const INSTANCE_B = new SomeComponentB({ view: SomeView }, { view: SomeContextView })
+      expect(resolveView(INSTANCE_A)).toBe(SomeView)
+      expect(resolveView(INSTANCE_B)).toBe(SomeView)
+    })
+
+    for (const BOGUS_VIEW of BOGUS_VIEWS) {
+      it(`returns the view from the context for “${BOGUS_VIEW}”`, () => {
+        const INSTANCE = new SomeComponentB({ view: BOGUS_VIEW }, { view: SomeContextView })
+        expect(resolveView(INSTANCE)).toBe(SomeContextView)
+      })
+    }
   })
 
-  for (const BOGUS_VIEW of BOGUS_VIEWS) {
-    it(`returns the default pressenter for “${BOGUS_VIEW}”`, () => {
-      const INSTANCE = new SomeComponentB({ view: BOGUS_VIEW })
-      expect(resolveView(INSTANCE)).toBe(SomeDefaultView)
+  describe('no view in the context', () => {
+    it('returns the specified view', () => {
+      const INSTANCE_A = new SomeComponentA({ view: SomeView })
+      const INSTANCE_B = new SomeComponentB({ view: SomeView })
+      expect(resolveView(INSTANCE_A)).toBe(SomeView)
+      expect(resolveView(INSTANCE_B)).toBe(SomeView)
     })
-  }
 
-  for (const BOGUS_VIEW of BOGUS_VIEWS) {
-    it(`returns undefined for “${BOGUS_VIEW}”`, () => {
-      const INSTANCE = new SomeComponentA({ view: BOGUS_VIEW })
-      expect(resolveView(INSTANCE)).toBeUndefined()
-    })
-  }
+    for (const BOGUS_VIEW of BOGUS_VIEWS) {
+      it(`returns the default pressenter for “${BOGUS_VIEW}”`, () => {
+        const INSTANCE = new SomeComponentB({ view: BOGUS_VIEW })
+        expect(resolveView(INSTANCE)).toBe(SomeDefaultView)
+      })
+    }
+
+    for (const BOGUS_VIEW of BOGUS_VIEWS) {
+      it(`returns undefined for “${BOGUS_VIEW}”`, () => {
+        const INSTANCE = new SomeComponentA({ view: BOGUS_VIEW })
+        expect(resolveView(INSTANCE)).toBeUndefined()
+      })
+    }
+  })
 })
