@@ -10,26 +10,17 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import isPresentable from './isPresentable'
+import PropTypes from 'prop-types'
 import { Component } from 'react'
 
-export function resolveView(target:Component<*>) {
-  if (!isPresentable(target))
-    return undefined
+export class ContextView extends Component {
+  static childContextTypes = {
+    view: PropTypes.object
+  }
 
-  const VIEW = target?.props?.view
-  if (VIEW && VIEW.prototype instanceof Component)
-    return VIEW
-
-  const CONTEXT_VIEW = target?.context?.view
-  if (CONTEXT_VIEW && CONTEXT_VIEW.prototype instanceof Component)
-    return CONTEXT_VIEW
-
-  const DEFAULT_VIEW = target?.defaultView
-  if (DEFAULT_VIEW && DEFAULT_VIEW.prototype instanceof Component)
-    return DEFAULT_VIEW
-
-  return undefined
+  getChildContext() {
+    return { view: this.props.view }
+  }
 }
 
-export default resolveView
+export default ContextView

@@ -10,6 +10,7 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+export ContextView from './ContextView'
 export defaultView from './defaultView'
 export isPresentable from './isPresentable'
 export presentable from './presentable'
