@@ -1,6 +1,6 @@
 {
   "name": "presentable",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "description": "Decorator to facilitate the separation between the view and view model.",
   "license": "Apache-2.0",
   "main": "build",
@@ -45,5 +45,8 @@
   },
   "peerDependencies": {
     "react": "^15.6.1 || ^16.0.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0"
   }
 }

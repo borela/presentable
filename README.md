@@ -11,7 +11,8 @@ Decorator to facilitate the separation between the view and view model (presenta
 2. [Basic usage](#basic-usage)
 3. [Adding the view](#adding-the-view)
 4. [Default view](#default-view)
-5. [Advanced usage](#advanced-usage)
+5. [Context view](#context-view)
+6. [Advanced usage](#advanced-usage)
 
 ## Installation
 
@@ -71,6 +72,37 @@ class AnotherViewModel extends Component {
 // view to render a similar model.
 <AnotherViewModel a="1" b="2" c="3"/>
 // Result: <span a="1" b="2" c="3"></span>
+```
+
+## Context view
+
+```js
+// Sometimes you need to render multiple view models using the same view, in that
+// case you can pass use the context.
+
+import { ContextView } from 'presentable'
+
+<ContextView view={SomeView}>
+  <MyViewModel a="1" b="2" c="3"/>
+  <MyViewModel a="4" b="5" c="6"/>
+</ContextView>
+// Result:
+// <span a="1" b="2" c="3"></span>
+// <span a="4" b="5" c="6"></span>
+
+<ContextView view={SomeView}>
+  <div>
+    <div>
+      <div>
+        <div>
+          {/* It does not matter how deep the component is in the tree. */}
+          <MyViewModel a="1" b="2" c="3"/>
+          <MyViewModel a="4" b="5" c="6"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</ContextView>
 ```
 
 ## Advanced usage
